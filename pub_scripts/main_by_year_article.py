@@ -1,18 +1,22 @@
-import os
+from __future__ import annotations
 
-import torch
-from torch.utils.data import Dataset, DataLoader
-import numpy as np
-import torch.nn as nn
-import matplotlib.pyplot as plt
 import math
-import matplotlib
-import inverse_model as inver  # fichier où sont rangés les codes permettant de faire l'inversion variationelle
-import extraction_data as extr  # fichier où sont rangés les codes permettant d'extraire les données
-import random
-import scipy.stats as stats
-import torch.nn.functional as F
 import pickle
+import os
+import random
+
+import matplotlib
+import matplotlib.pyplot as plt
+import numpy as np
+import scipy.stats as stats
+import torch
+import torch.nn as nn
+import torch.nn.functional as F
+
+from torch.utils.data import Dataset, DataLoader
+
+import extraction_data as extr  # fichier où sont rangés les codes permettant d'extraire les données
+import inverse_model as inver  # fichier où sont rangés les codes permettant de faire l'inversion variationelle
 
 
 # Fonction créant une arborescence pour stocker nos résultats

@@ -49,7 +49,8 @@ class MonDataset(Dataset):
 			# on choisit au hasard un modèle qui n'est pas all
 			while True:
 				model = random.randint(0, len(self.ghg) - 1)
-				if model != self.all: break
+				if model != self.all:
+					break
 
 			# On choisit au hasard une simulation de chaque type du modèle
 			ghg_max = self.ghg[model].shape[0] - 1
@@ -201,12 +202,24 @@ def train_model(data, data_test, lr=0.001, nb_epoch=100, taille=3, regularisatio
 	return model, Loss_tab, Loss_test_tab, model_linear, Loss_tab_lin, Loss_test_tab_lin
 
 
-def train_and_plot(nom_dossier_root, clus=-1, all=0, normalis=False, denormalis=False, taille=3, filtrage=False,
-                   regularisation=-1):
-	liste_models = ['CanESM5', 'CNRM', 'IPSL', 'ACCESS', 'BCC', 'FGOALS', 'HadGEM3', 'MIRO', 'ESM2', 'NorESM2',
-	                'CESM2', 'GISS', 'ALL']
-	colors_model = ['red', 'blue', 'green', 'purple', 'gray', 'yellow', 'brown', 'orange', 'lawngreen', 'cyan', 'pink',
-	                'olive']
+def train_and_plot(
+		nom_dossier_root: str,
+		clus: int = -1,
+		all: int = 0,
+		normalis: bool = False,
+		denormalis: bool = False,
+		taille: int = 3,
+		filtrage: bool = False,
+		regularisation: int = -1
+) -> np.ndarray:
+	liste_models = [
+		'CanESM5', 'CNRM', 'IPSL', 'ACCESS', 'BCC', 'FGOALS', 'HadGEM3',
+		'MIRO', 'ESM2', 'NorESM2', 'CESM2', 'GISS', 'ALL'
+	]
+	colors_model = [
+		'red', 'blue', 'green', 'purple', 'gray', 'yellow',
+		'brown', 'orange', 'lawngreen', 'cyan', 'pink', 'olive'
+	]
 
 	grad = 'new'
 	print(clus)
@@ -218,16 +231,26 @@ def train_and_plot(nom_dossier_root, clus=-1, all=0, normalis=False, denormalis=
 
 	nom_dossier = nom_dossier_root + 'cluster_' + str(clus) + '/'
 
-	ghg, aer, nat, historical, liste_max = extr.get_data_set(cluster=clus, model='ALL', normalis=normalis,
-	                                                         filtrage=filtrage)
+	ghg, aer, nat, historical, liste_max = extr.get_data_set(
+		cluster=clus,
+		model='ALL',
+		normalis=normalis,
+		filtrage=filtrage,
+	)
 
 	data = DataLoader(MonDataset(ghg, aer, nat, historical, type='train', all=all), shuffle=True, batch_size=BATCH_SIZE)
 	data_test = DataLoader(MonDataset(ghg, aer, nat, historical, type='test', all=all), shuffle=True,
 	                       batch_size=BATCH_SIZE)
 
-	model, Loss_tab, Loss_test_tab, model_linear, Loss_tab_lin, Loss_test_tab_lin = train_model(data, data_test,
-	                                                                                            taille=taille,
-	                                                                                            regularisation=regularisation)
+	test_dataset = MonDataset(ghg, aer, nat, historical, data_type='test', all=all)
+	data_test = DataLoader(test_dataset, shuffle=True, batch_size=BATCH_SIZE)
+
+	model, Loss_tab, Loss_test_tab, model_linear, Loss_tab_lin, Loss_test_tab_lin = train_model(
+		data,
+		data_test,
+		taille=taille,
+		regularisation=regularisation
+	)
 
 	if (nom_dossier != ''): # TODO: paths
 		mkdir_p('./figures/' + nom_dossier)
@@ -243,8 +266,12 @@ def train_and_plot(nom_dossier_root, clus=-1, all=0, normalis=False, denormalis=
 		inver_cible = obs
 		for i in range(len(liste_models) - 1):
 
-			ghg, aer, nat, hist, liste = extr.get_data_set(liste_models[i], cluster=clus, normalis=normalis,
-			                                               filtrage=filtrage)
+			ghg, aer, nat, hist, liste = extr.get_data_set(
+				liste_models[i],
+				cluster=clus,
+				normalis=normalis,
+				filtrage=filtrage,
+			)
 			# ghg, aer, nat, hist, liste = extr.get_data_set('GISS', cluster=clus, normalis=normalis,
 			# filtrage=filtrage)
 
@@ -273,10 +300,12 @@ def train_and_plot(nom_dossier_root, clus=-1, all=0, normalis=False, denormalis=
 
 	elif all != -1:
 		Result = []
-		ghg_ueless, aer_useless, nat_useless, hist_cible, liste_useless = extr.get_data_set(liste_models[all],
-		                                                                                    cluster=clus,
-		                                                                                    normalis=normalis,
-		                                                                                    filtrage=filtrage)
+		ghg_ueless, aer_useless, nat_useless, hist_cible, liste_useless = extr.get_data_set(
+			liste_models[all],
+			cluster=clus,
+			normalis=normalis,
+			filtrage=filtrage
+		)
 
 		for numb_inv in range(min(10, hist_cible.shape[0] - 1)):
 			liste_res_for = []
@@ -285,8 +314,12 @@ def train_and_plot(nom_dossier_root, clus=-1, all=0, normalis=False, denormalis=
 			for i in range(len(liste_models) - 1):
 				if i != all:
 
-					ghg, aer, nat, hist, liste = extr.get_data_set(liste_models[i], cluster=clus, normalis=normalis,
-					                                               filtrage=filtrage)
+					ghg, aer, nat, hist, liste = extr.get_data_set(
+						liste_models[i],
+						cluster=clus,
+						normalis=normalis,
+						filtrage=filtrage
+					)
 					# ghg, aer, nat, hist, liste = extr.get_data_set('GISS', cluster=clus, normalis=normalis,
 					# filtrage=filtrage)
 

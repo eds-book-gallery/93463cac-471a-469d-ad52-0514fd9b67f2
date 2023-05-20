@@ -14,9 +14,10 @@ def model_inverse(entre, cible, model, alpha=0.005):
 		current = model(X)
 		loss = criterion(current.float(), cible.float()) + 0.01 * criterion(X.float(), entre.float())
 
-		if (i % 1000 == 0):
+		if i % 1000 == 0:
 			print(
-				f"Itérations {i}:   loss sortie {criterion(current, cible)} loss entree {criterion(entre, X)}")
+				f"Iteration {i}:   loss exit {criterion(current, cible)} loss entry {criterion(entre, X)}"
+			)
 
 		loss.backward()
 

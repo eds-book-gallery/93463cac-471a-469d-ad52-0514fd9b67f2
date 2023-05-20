@@ -15,7 +15,7 @@ import pickle
 
 # Fonction créant une arborescence pour stocker nos résultats
 def mkdir_p(mypath):
-	'''Creates a directory. equivalent to using mkdir -p on the command line'''
+	"""Creates a directory. equivalent to using mkdir -p on the command line"""
 
 	from errno import EEXIST
 	from os import makedirs, path

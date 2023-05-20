@@ -47,7 +47,7 @@ class MonDataset(Dataset):
 
 		if self.train_test == 'train':
 			# on choisit au hasard un modèle qui n'est pas all
-			while True:
+			while True: # TODO: fix this !!!!!!!
 				model = random.randint(0, len(self.ghg) - 1)
 				if model != self.all:
 					break
@@ -229,7 +229,7 @@ def train_and_plot(
 	max_obs = torch.max(obs)
 	obs = obs / max_obs
 
-	nom_dossier = nom_dossier_root + 'cluster_' + str(clus) + '/'
+	nom_dossier = nom_dossier_root + 'cluster_' + str(clus) + '/' # TODO: fix the path
 
 	ghg, aer, nat, historical, liste_max = extr.get_data_set(
 		cluster=clus,

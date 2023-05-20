@@ -24,6 +24,7 @@ LAT = f.variables['latitude'][:]
 
 
 # fonction faisant la moyenne spatiale d'une simulation
+# function for the spatial norm of a simulation
 def get_mean(data, cluster=-1):
 	t = np.zeros((data.shape[0]))
 	if (cluster == -1):
@@ -49,6 +50,7 @@ def get_mean(data, cluster=-1):
 
 
 # fonction extrayant les observations
+# function to get the observations
 def get_obs(cluster=-1):
 	fn = data_dir + 'obs.nc'
 
@@ -62,6 +64,7 @@ test = get_obs()
 
 
 # fonction extrayant la valeur pré-industrielle moyenne d'un modèle climatique
+# function to get the pre-industrial mean value of a climatic model
 def get_pre_ind(type, model='IPSL', phys=1):
 	if (model == 'IPSL'):
 		result = np.zeros((36, 72))
@@ -320,6 +323,7 @@ def get_simu(type, simu, model='IPSL', cluster=-1, filtrage=False):
 
 
 # fonction renvoyant les simulations d'un certain type d'un modèle climatique
+# function to get the simulations from a specific model
 def get_data_forcage(type, model='IPSL', cluster=-1, filtrage=False):
 	if (model == 'IPSL'):
 
@@ -409,6 +413,7 @@ def get_data_forcage(type, model='IPSL', cluster=-1, filtrage=False):
 
 
 # fonction renvoyant le data-set entier traité
+# function to get the full dataset and processes it
 def get_data_set(model='IPSL', cluster=-1, normalis=False, filtrage=False):
 	liste_max = []
 	if (model != 'ALL'):
@@ -471,6 +476,7 @@ def get_data_set(model='IPSL', cluster=-1, normalis=False, filtrage=False):
 
 
 # renvoie les simulations moyenne de modèle climtique
+# to get the mmean simulations of a model
 def get_mean_data_set(model='IPSL', normalis=False, cluster=-1, filtrage=False):
 	if (model != 'ALL'):
 
@@ -532,6 +538,7 @@ def get_mean_data_set(model='IPSL', normalis=False, cluster=-1, filtrage=False):
 
 
 # fonction renvoyant l"'écart moyen d'un modèle climatique
+# get the std of a model
 def get_std_data_set(model='IPSL', cluster=-1, normalis=False, filtrage=False):
 	if (model != 'ALL'):
 

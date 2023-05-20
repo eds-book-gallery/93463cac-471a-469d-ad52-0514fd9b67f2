@@ -11,12 +11,16 @@ obs = np.array(extr.get_obs(cluster=-1))[0:115] * 1.06
 max_obs = np.max(obs)
 R = []
 
-liste_models = ['CanESM5', 'CNRM', 'IPSL', 'ACCESS', 'BCC', 'FGOALS',
-                'HadGEM3', 'MIRO', 'ESM2', 'NorESM2', 'CESM2', 'GISS', 'ALL']
+liste_models = [
+	'CanESM5', 'CNRM', 'IPSL', 'ACCESS', 'BCC', 'FGOALS',
+	'HadGEM3', 'MIRO', 'ESM2', 'NorESM2', 'CESM2', 'GISS', 'ALL'
+]
 
-model_true_name = ['CanESM5', 'CNRM-CM6-1', 'IPSL-CM6A-LR', 'ACCESS-ESM1-5',
-                   'BCC-CSM2-MR', 'FGOALS-g3', 'HadGEM3', 'MIROC6', 'MRI-ESM2.0',
-                   'NorESM2-LM', 'CESM2', 'GISS-E2-1-G', 'ALL']
+model_true_name = [
+	'CanESM5', 'CNRM-CM6-1', 'IPSL-CM6A-LR', 'ACCESS-ESM1-5',
+	'BCC-CSM2-MR', 'FGOALS-g3', 'HadGEM3', 'MIROC6', 'MRI-ESM2.0',
+	'NorESM2-LM', 'CESM2', 'GISS-E2-1-G', 'ALL'
+]
 # forc = 2
 # for mod in range(12):
 #
@@ -69,12 +73,26 @@ for model in range(12):
 	ALL_data_orig = np.load('figures/Resul_model_inv/No_fil_pad_0/' + model_true_name[
 		model] + '/model_10_parameters/cluster_-1/inver.npy') / max_obs
 
-	data_true_inv, inver_cible = extr.get_mean_data_set(liste_models[model], cluster=-1, normalis=False,
-	                                                    filtrage=False)
+	data_true_inv, inver_cible = extr.get_mean_data_set(
+		liste_models[model],
+		cluster=-1,
+		normalis=False,
+		filtrage=False
+	)
 
-	std_true_inv, useless_std = extr.get_std_data_set(liste_models[model], cluster=-1, normalis=False, filtrage=False)
-	ghg_ueless, aer_useless, nat_useless, hist_cible, liste_useless = extr.get_data_set(liste_models[model], cluster=-1,
-	                                                                                    normalis=False, filtrage=False)
+	std_true_inv, useless_std = extr.get_std_data_set(
+		liste_models[model],
+		cluster=-1,
+		normalis=False,
+		filtrage=False
+	)
+	ghg_ueless, aer_useless, nat_useless, hist_cible, liste_useless = extr.get_data_set(
+		liste_models[model],
+		cluster=-1,
+		normalis=False,
+		filtrage=False
+	)
+
 	ALL_data_orig *= liste_useless[0]
 	ALL_data = ALL_data_orig[1]
 	moy_ghg = np.mean(ALL_data[:, 0], axis=0)

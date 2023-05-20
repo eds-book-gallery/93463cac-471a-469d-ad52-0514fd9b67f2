@@ -238,9 +238,8 @@ def train_and_plot(
 		filtrage=filtrage,
 	)
 
-	data = DataLoader(MonDataset(ghg, aer, nat, historical, type='train', all=all), shuffle=True, batch_size=BATCH_SIZE)
-	data_test = DataLoader(MonDataset(ghg, aer, nat, historical, type='test', all=all), shuffle=True,
-	                       batch_size=BATCH_SIZE)
+	train_dataset = MonDataset(ghg, aer, nat, historical, data_type='train', all=all)
+	data = DataLoader(train_dataset, shuffle=True, batch_size=BATCH_SIZE)
 
 	test_dataset = MonDataset(ghg, aer, nat, historical, data_type='test', all=all)
 	data_test = DataLoader(test_dataset, shuffle=True, batch_size=BATCH_SIZE)
@@ -275,8 +274,9 @@ def train_and_plot(
 			# ghg, aer, nat, hist, liste = extr.get_data_set('GISS', cluster=clus, normalis=normalis,
 			# filtrage=filtrage)
 
-			data_entree = DataLoader(MonDataset_inverse(ghg, aer, nat),
-			                         batch_size=1)
+			inverse_dataset = MonDataset_inverse(ghg, aer, nat)
+			data_entree = DataLoader(inverse_dataset, batch_size=1)
+
 			for pt_depart in data_entree:
 
 				X, current = inver.model_inverse(pt_depart, torch.tensor(inver_cible), model)
@@ -323,8 +323,8 @@ def train_and_plot(
 					# ghg, aer, nat, hist, liste = extr.get_data_set('GISS', cluster=clus, normalis=normalis,
 					# filtrage=filtrage)
 
-					data_entree = DataLoader(MonDataset_inverse(ghg, aer, nat),
-					                         batch_size=1)
+					inverse_dataset = MonDataset_inverse(ghg, aer, nat)
+					data_entree = DataLoader(inverse_dataset, batch_size=1)
 					for pt_depart in data_entree:
 
 						X, current = inver.model_inverse(pt_depart, torch.tensor(inver_cible), model)

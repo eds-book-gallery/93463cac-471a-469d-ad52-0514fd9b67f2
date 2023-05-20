@@ -79,8 +79,6 @@ def get_pre_ind(type, model='IPSL', phys=1):
 		result /= dic[type]
 		return result
 
-
-
 	elif (model == 'ACCESS'):
 		result = np.zeros((36, 72))
 		dic = {'hist-GHG': 3, 'hist-aer': 3, 'hist-nat': 3, 'historical': 30}
@@ -324,92 +322,50 @@ def get_simu(type, simu, model='IPSL', cluster=-1, filtrage=False):
 
 # fonction renvoyant les simulations d'un certain type d'un modèle climatique
 # function to get the simulations from a specific model
-def get_data_forcage(type, model='IPSL', cluster=-1, filtrage=False):
-	if (model == 'IPSL'):
+def get_data_forcage(data_type: str, model: str = 'IPSL', cluster: int = -1, filtrage: bool = False):
+	dic = {}
 
+	if model == 'IPSL':
 		dic = {'hist-GHG': 10, 'hist-aer': 10, 'hist-nat': 10, 'historical': 32}
-		result = np.zeros((dic[type], 115))
-		for i in range(dic[type]):
-			result[i] = get_simu(type, i + 1, model, cluster, filtrage=filtrage)[0:115]
 
-	if (model == 'CNRM'):
-
+	elif model == 'CNRM':
 		dic = {'hist-GHG': 9, 'hist-aer': 10, 'hist-nat': 10, 'historical': 30}
-		result = np.zeros((dic[type], 115))
-		for i in range(dic[type]):
-			result[i] = get_simu(type, i + 1, model, cluster, filtrage=filtrage)[0:115]
 
-	if (model == 'CESM2'):
-
+	elif model == 'CESM2':
 		dic = {'hist-GHG': 3, 'hist-aer': 2, 'hist-nat': 3, 'historical': 11}
-		result = np.zeros((dic[type], 115))
-		for i in range(dic[type]):
-			result[i] = get_simu(type, i + 1, model, cluster, filtrage=filtrage)[0:115]
 
-	if (model == 'ACCESS'):
-
+	elif model == 'ACCESS':
 		dic = {'hist-GHG': 3, 'hist-aer': 3, 'hist-nat': 3, 'historical': 30}
-		result = np.zeros((dic[type], 115))
-		for i in range(dic[type]):
-			result[i] = get_simu(type, i + 1, model, cluster, filtrage=filtrage)[0:115]
 
-	if (model == 'BCC'):
-
+	elif model == 'BCC':
 		dic = {'hist-GHG': 3, 'hist-aer': 3, 'hist-nat': 3, 'historical': 3}
-		result = np.zeros((dic[type], 115))
-		for i in range(dic[type]):
-			result[i] = get_simu(type, i + 1, model, cluster, filtrage=filtrage)[0:115]
 
-	if (model == 'CanESM5'):
-
+	elif model == 'CanESM5':
 		dic = {'hist-GHG': 50, 'hist-aer': 30, 'hist-nat': 50, 'historical': 65}
-		result = np.zeros((dic[type], 115))
-		for i in range(dic[type]):
-			result[i] = get_simu(type, i + 1, model, cluster, filtrage=filtrage)[0:115]
 
-	if (model == 'FGOALS'):
-
+	elif model == 'FGOALS':
 		dic = {'hist-GHG': 3, 'hist-aer': 3, 'hist-nat': 3, 'historical': 6}
-		result = np.zeros((dic[type], 115))
-		for i in range(dic[type]):
-			result[i] = get_simu(type, i + 1, model, cluster, filtrage=filtrage)[0:115]
 
-	if (model == 'GISS'):
-
+	elif model == 'GISS':
 		dic = {'hist-GHG': 10, 'hist-aer': 12, 'hist-nat': 20, 'historical': 19}
-		result = np.zeros((dic[type], 115))
-		for i in range(dic[type]):
-			result[i] = get_simu(type, i + 1, model, cluster, filtrage=filtrage)[0:115]
 
-	if (model == 'HadGEM3'):
-
+	elif model == 'HadGEM3':
 		dic = {'hist-GHG': 4, 'hist-aer': 4, 'hist-nat': 4, 'historical': 5}
-		result = np.zeros((dic[type], 115))
-		for i in range(dic[type]):
-			result[i] = get_simu(type, i + 1, model, cluster, filtrage=filtrage)[0:115]
 
-	if (model == 'MIRO'):
-
+	elif model == 'MIRO':
 		dic = {'hist-GHG': 3, 'hist-aer': 3, 'hist-nat': 3, 'historical': 50}
-		result = np.zeros((dic[type], 115))
-		for i in range(dic[type]):
-			result[i] = get_simu(type, i + 1, model, cluster, filtrage=filtrage)[0:115]
 
-	if (model == 'ESM2'):
-
+	elif model == 'ESM2':
 		dic = {'hist-GHG': 5, 'hist-aer': 5, 'hist-nat': 5, 'historical': 5}
-		result = np.zeros((dic[type], 115))
-		for i in range(dic[type]):
-			result[i] = get_simu(type, i + 1, model, cluster, filtrage=filtrage)[0:115]
 
-	if (model == 'NorESM2'):
-
+	elif model == 'NorESM2':
 		dic = {'hist-GHG': 3, 'hist-aer': 3, 'hist-nat': 3, 'historical': 3}
-		result = np.zeros((dic[type], 115))
-		for i in range(dic[type]):
-			result[i] = get_simu(type, i + 1, model, cluster, filtrage=filtrage)[0:115]
 
-	return (result)
+	result = np.zeros((dic[data_type], 115))
+	for i in range(dic[data_type]):
+		result[i] = get_simu(type, i + 1, model, cluster, filtrage=filtrage)[0:115]
+
+	return result
 
 
 # fonction renvoyant le data-set entier traité

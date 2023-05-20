@@ -10,11 +10,13 @@ import extraction_data as extr
 obs = np.array(extr.get_obs(cluster=-1))[0:115] * 1.06
 max_obs = np.max(obs)
 R = []
-liste_models = ['CanESM5', 'CNRM', 'IPSL', 'ACCESS', 'BCC', 'FGOALS', 'HadGEM3', 'MIRO', 'ESM2', 'NorESM2',
-                'CESM2', 'GISS', 'ALL']
+
+liste_models = ['CanESM5', 'CNRM', 'IPSL', 'ACCESS', 'BCC', 'FGOALS',
+                'HadGEM3', 'MIRO', 'ESM2', 'NorESM2', 'CESM2', 'GISS', 'ALL']
+
 model_true_name = ['CanESM5', 'CNRM-CM6-1', 'IPSL-CM6A-LR', 'ACCESS-ESM1-5',
-                   'BCC-CSM2-MR', 'FGOALS-g3', 'HadGEM3', 'MIROC6', 'MRI-ESM2.0', 'NorESM2-LM', 'CESM2', 'GISS-E2-1-G',
-                   'ALL']
+                   'BCC-CSM2-MR', 'FGOALS-g3', 'HadGEM3', 'MIROC6', 'MRI-ESM2.0',
+                   'NorESM2-LM', 'CESM2', 'GISS-E2-1-G', 'ALL']
 # forc = 2
 # for mod in range(12):
 #

@@ -1,3 +1,5 @@
+import os
+
 import torch
 from torch.utils.data import Dataset, DataLoader
 import numpy as np
@@ -14,20 +16,10 @@ import pickle
 
 
 # Fonction créant une arborescence pour stocker nos résultats
-def mkdir_p(mypath):
+def mkdir_p(path: str) -> None:
 	"""Creates a directory. equivalent to using mkdir -p on the command line"""
-
-	from errno import EEXIST
-	from os import makedirs, path
-
-	try:
-		makedirs(mypath)
-	except OSError as exc:  # Python >2.5
-		if exc.errno == EEXIST and path.isdir(mypath):
-			pass
-		else:
-			raise
-
+	if not os.path.exists(path):
+		os.makedirs(path)
 
 # créer la classe de data set de notre réseau de neurones
 # all représente le modèle climatique étudié, si all vaut -1 on étudie tout les modèles en même temps

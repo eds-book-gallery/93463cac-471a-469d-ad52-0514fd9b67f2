@@ -69,7 +69,7 @@ class MonDataset(Dataset):
 		elif self.train_test == 'test':
 			# même fonctionnement mais en ne prenant que le modèle all
 			model = self.all
-			if (model == -1):
+			if model == -1:
 				model = random.randint(0, len(self.ghg) - 1)
 			ghg_max = self.ghg[model].shape[0] - 1
 			aer_max = self.aer[model].shape[0] - 1
@@ -229,7 +229,7 @@ def train_and_plot(nom_dossier_root, clus=-1, all=0, normalis=False, denormalis=
 	                                                                                            taille=taille,
 	                                                                                            regularisation=regularisation)
 
-	if (nom_dossier != ''):
+	if (nom_dossier != ''): # TODO: paths
 		mkdir_p('./figures/' + nom_dossier)
 
 	torch.save(model, './figures/' + nom_dossier + 'model.pt')
@@ -239,7 +239,7 @@ def train_and_plot(nom_dossier_root, clus=-1, all=0, normalis=False, denormalis=
 	liste_res_for = []
 	liste_res_cible = []
 
-	if (all == -1):
+	if all == -1:
 		inver_cible = obs
 		for i in range(len(liste_models) - 1):
 
@@ -256,7 +256,7 @@ def train_and_plot(nom_dossier_root, clus=-1, all=0, normalis=False, denormalis=
 				if denormalis:
 					# liste_res_for.append(X.clone().detach().numpy()*liste_max[i])
 					# liste_res_cible.append(current.clone().detach().numpy()*liste_max[i])
-					if (all != -1):
+					if all != -1:
 						liste_res_for.append(X.clone().detach().numpy() * max_obs.item())
 						liste_res_cible.append(current.clone().detach().numpy() * max_obs.item())
 					else:
@@ -271,11 +271,7 @@ def train_and_plot(nom_dossier_root, clus=-1, all=0, normalis=False, denormalis=
 		with open('./figures/' + nom_dossier + 'inver.npy', 'wb') as f1:
 			np.save(f1, liste_res_for)
 
-
-
-
-
-	elif (all != -1):
+	elif all != -1:
 		Result = []
 		ghg_ueless, aer_useless, nat_useless, hist_cible, liste_useless = extr.get_data_set(liste_models[all],
 		                                                                                    cluster=clus,
@@ -287,7 +283,7 @@ def train_and_plot(nom_dossier_root, clus=-1, all=0, normalis=False, denormalis=
 			liste_res_cible = []
 			inver_cible = hist_cible[numb_inv]
 			for i in range(len(liste_models) - 1):
-				if (i != all):
+				if i != all:
 
 					ghg, aer, nat, hist, liste = extr.get_data_set(liste_models[i], cluster=clus, normalis=normalis,
 					                                               filtrage=filtrage)
@@ -302,7 +298,7 @@ def train_and_plot(nom_dossier_root, clus=-1, all=0, normalis=False, denormalis=
 						if denormalis:
 							# liste_res_for.append(X.clone().detach().numpy()*liste_max[i])
 							# liste_res_cible.append(current.clone().detach().numpy()*liste_max[i])
-							if (all == -1):
+							if all == -1:
 								liste_res_for.append(X.clone().detach().numpy() * max_obs.item())
 								liste_res_cible.append(current.clone().detach().numpy() * max_obs.item())
 							else:

@@ -1,12 +1,16 @@
-import numpy as np
-import netCDF4 as nc4
-from scipy.io import loadmat
-import matplotlib.pyplot as plt
-import torch
-import matplotlib.image as mpimg
-import seaborn as sns
+from __future__ import annotations
+
 import bottleneck as bn
+import matplotlib.image as mpimg
+import matplotlib.pyplot as plt
+import netCDF4 as nc4  # TODO: look into the new alternative to netCDF4 if possible
+import numpy as np
+import seaborn as sns
+import torch
+
 from scipy import signal
+from scipy.io import loadmat
+
 
 b, a = signal.butter(20, 1 / 5, btype='lowpass')
 

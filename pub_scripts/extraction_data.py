@@ -291,21 +291,17 @@ def get_simu(data_type: str, simu, model: str = 'IPSL', cluster: int = -1, filte
 			if i > 10:
 				phys = 2
 		pre_ind = get_pre_ind(data_type, model=model, phys=phys)
-
 	else:
 		pre_ind = get_pre_ind(data_type, model=model)
 
 	fn = data_dir + model + '_' + data_type + '_' + str(simu) + '.nc'
 	f = nc4.Dataset(fn, 'r')
-	# print(f.variables['tas'][:].shape)
 	data = f.variables['tas'][50:]
-	# print(data.shape)
 
 	data = data - pre_ind
 	result = get_mean(data, cluster=cluster)
 	if filtering:
 		if data_type == 'hist-GHG' or data_type == 'hist-aer':
-			# result = bn.move_mean(result, window=5, min_count=1)
 			result = signal.filtfilt(b, a, result)
 	return result
 

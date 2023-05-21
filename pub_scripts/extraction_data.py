@@ -325,16 +325,10 @@ def get_std_data_set(model: str = 'IPSL', cluster: int = -1, normalis: bool = Fa
 		result = []
 		historical = []
 		for model_curr in LIST_MODELS:
-
 			aer_ipsl = get_data_forcage('hist-aer', model=model_curr, cluster=cluster, filtrage=filtrage)[:, 0:115]
 			ghg_ipsl = get_data_forcage('hist-GHG', model=model_curr, cluster=cluster, filtrage=filtrage)[:, 0:115]
 			nat_ipsl = get_data_forcage('hist-nat', model=model_curr, cluster=cluster, filtrage=filtrage)[:, 0:115]
-			historical_ipsl = get_data_forcage(
-				'historical',
-				model=model_curr,
-				cluster=cluster,
-				filtrage=filtrage
-			)[:, 0:115]
+			historical_ipsl = get_data_forcage('historical', model=model_curr, cluster=cluster, filtrage=filtrage)[:, 0:115]
 			if normalis:
 				max_hist = np.max(np.mean(historical_ipsl, axis=0))
 				aer_ipsl = aer_ipsl / max_hist

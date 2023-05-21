@@ -410,7 +410,7 @@ def get_map_compar(year1: int, year2: int, model: str = 'CNRM') -> None:
 	plt.yticks([8, 13, 18, 22, 28], ['60°N', '30°N', '0°', '30°S', '60°S'])
 	plt.title(f'Difference between historical simulations and sum of forcing simulations.\nYears {year1}-{year2}')
 	plt.tight_layout()
-	plt.savefig('figures/diff_' + str(year1) + '_' + str(year2) + '_CNRM')
+	plt.savefig(os.path.join('figures', f'diff_{year1}_{year2}_CNRM'))
 	plt.show()
 
 

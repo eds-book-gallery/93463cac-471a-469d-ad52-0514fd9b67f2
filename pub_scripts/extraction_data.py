@@ -15,6 +15,11 @@ from scipy import signal
 from scipy.io import loadmat
 
 
+LIST_MODELS = [
+	'CanESM5', 'CNRM', 'IPSL', 'ACCESS', 'BCC', 'FGOALS',
+	'HadGEM3', 'MIRO', 'ESM2', 'NorESM2', 'CESM2', 'GISS'
+]
+
 b, a = signal.butter(20, 1 / 5, btype='lowpass')
 
 data_dir = 'data_pre_ind_2'
@@ -210,10 +215,7 @@ def get_data_set(model: str = 'IPSL', cluster: int = -1, normalis: bool = False,
 			historical = historical / max_hist
 
 	elif model == 'ALL':
-		LIST_MODELS = [
-			'CanESM5', 'CNRM', 'IPSL', 'ACCESS', 'BCC', 'FGOALS',
-			'HadGEM3', 'MIRO', 'ESM2', 'NorESM2', 'CESM2', 'GISS'
-		]
+
 		aer = []
 		ghg = []
 		nat = []
@@ -267,10 +269,6 @@ def get_mean_data_set(model: str = 'IPSL', normalis: bool = False, cluster: int 
 			historical = historical / max_hist
 
 	elif model == 'ALL':
-		LIST_MODELS = [
-			'CanESM5', 'CNRM', 'IPSL', 'ACCESS', 'BCC', 'FGOALS',
-			'HadGEM3', 'MIRO', 'ESM2', 'NorESM2', 'CESM2', 'GISS'
-		]
 		result = []
 		historical = []
 		for model_curr in LIST_MODELS:
@@ -338,10 +336,6 @@ def get_std_data_set(model: str = 'IPSL', cluster: int = -1, normalis: bool = Fa
 		historical = np.std(historical, axis=0)
 
 	elif model == 'ALL':
-		LIST_MODELS = [
-			'CanESM5', 'CNRM', 'IPSL', 'ACCESS', 'BCC', 'FGOALS',
-			'HadGEM3', 'MIRO', 'ESM2', 'NorESM2', 'CESM2', 'GISS'
-		]
 		result = []
 		historical = []
 		for model_curr in LIST_MODELS:

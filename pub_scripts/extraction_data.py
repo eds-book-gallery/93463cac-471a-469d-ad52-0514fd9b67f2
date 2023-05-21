@@ -60,7 +60,7 @@ test = get_obs()
 # fonction extrayant la valeur pré-industrielle moyenne d'un modèle climatique
 # function to get the pre-industrial mean value of a climatic model
 def get_pre_ind(type, model='IPSL', phys=1):
-	if (model == 'IPSL'):
+	if model == 'IPSL':
 		result = np.zeros((36, 72))
 		dic = {'hist-GHG': 10, 'hist-aer': 10, 'hist-nat': 10, 'historical': 32}
 		for i in range(dic[type]):
@@ -73,7 +73,7 @@ def get_pre_ind(type, model='IPSL', phys=1):
 		result /= dic[type]
 		return result
 
-	elif (model == 'ACCESS'):
+	elif model == 'ACCESS':
 		result = np.zeros((36, 72))
 		dic = {'hist-GHG': 3, 'hist-aer': 3, 'hist-nat': 3, 'historical': 30}
 		for i in range(dic[type]):
@@ -86,7 +86,7 @@ def get_pre_ind(type, model='IPSL', phys=1):
 		result /= dic[type]
 		return result
 
-	elif (model == 'CESM2'):
+	elif model == 'CESM2':
 		result = np.zeros((36, 72))
 		dic = {'hist-GHG': 3, 'hist-aer': 2, 'hist-nat': 3, 'historical': 11}
 		for i in range(dic[type]):
@@ -99,7 +99,7 @@ def get_pre_ind(type, model='IPSL', phys=1):
 		result /= dic[type]
 		return result
 
-	elif (model == 'BCC'):
+	elif model == 'BCC':
 		result = np.zeros((36, 72))
 		dic = {'hist-GHG': 3, 'hist-aer': 3, 'hist-nat': 3, 'historical': 3}
 		for i in range(dic[type]):
@@ -112,7 +112,7 @@ def get_pre_ind(type, model='IPSL', phys=1):
 		result /= dic[type]
 		return result
 
-	elif (model == 'CanESM5'):
+	elif model == 'CanESM5':
 		result = np.zeros((36, 72))
 		dic = {'hist-GHG': 50, 'hist-aer': 30, 'hist-nat': 50, 'historical': 65}
 		for i in range(dic[type]):
@@ -125,7 +125,7 @@ def get_pre_ind(type, model='IPSL', phys=1):
 		result /= dic[type]
 		return result
 
-	elif (model == 'FGOALS'):
+	elif model == 'FGOALS':
 		result = np.zeros((36, 72))
 		dic = {'hist-GHG': 3, 'hist-aer': 3, 'hist-nat': 3, 'historical': 6}
 		for i in range(dic[type]):
@@ -138,9 +138,9 @@ def get_pre_ind(type, model='IPSL', phys=1):
 		result /= dic[type]
 		return result
 
-	elif (model == 'GISS'):
-		if (type == 'hist-aer'):
-			if (phys == 1):
+	elif model == 'GISS':
+		if type == 'hist-aer':
+			if phys == 1:
 				result = np.zeros((36, 72))
 				dic = {'hist-GHG': 10, 'hist-aer': 12, 'hist-nat': 20, 'historical': 19}
 				for i in range(dic[type]):
@@ -151,7 +151,7 @@ def get_pre_ind(type, model='IPSL', phys=1):
 						data = f.variables['tas'][0:50]
 
 						result += np.mean(data, axis=0)
-				result /= (7)
+				result /= 7
 				return result
 
 			else:
@@ -167,12 +167,12 @@ def get_pre_ind(type, model='IPSL', phys=1):
 						result += np.mean(data, axis=0)
 				result /= 5
 				return result
-		elif (type == 'historical'):
-			if (phys == 1):
+		elif type == 'historical':
+			if phys == 1:
 				result = np.zeros((36, 72))
 				dic = {'hist-GHG': 10, 'hist-aer': 12, 'hist-nat': 20, 'historical': 19}
 				for i in range(dic[type]):
-					if (i < 10):
+					if i < 10:
 						fn = data_dir + model + '_' + type + '_' + str(i + 1) + '.nc'
 						f = nc4.Dataset(fn, 'r')
 						# print(i+1)
@@ -188,7 +188,7 @@ def get_pre_ind(type, model='IPSL', phys=1):
 				result = np.zeros((36, 72))
 				dic = {'hist-GHG': 10, 'hist-aer': 12, 'hist-nat': 20, 'historical': 19}
 				for i in range(dic[type]):
-					if (i >= 10):
+					if i >= 10:
 						fn = data_dir + model + '_' + type + '_' + str(i + 1) + '.nc'
 						f = nc4.Dataset(fn, 'r')
 						# print(i+1)
@@ -203,7 +203,7 @@ def get_pre_ind(type, model='IPSL', phys=1):
 			result = np.zeros((36, 72))
 			dic = {'hist-GHG': 10, 'hist-aer': 12, 'hist-nat': 20, 'historical': 19}
 			for i in range(dic[type]):
-				if (i == 5 or i == 6 or i == 7 or i == 8 or i == 9):
+				if i == 5 or i == 6 or i == 7 or i == 8 or i == 9:
 					fn = data_dir + model + '_' + type + '_' + str(i + 1) + '.nc'
 					f = nc4.Dataset(fn, 'r')
 
@@ -213,8 +213,7 @@ def get_pre_ind(type, model='IPSL', phys=1):
 			result /= 5
 			return result
 
-
-	elif (model == 'HadGEM3'):
+	elif model == 'HadGEM3':
 		result = np.zeros((36, 72))
 		dic = {'hist-GHG': 4, 'hist-aer': 4, 'hist-nat': 4, 'historical': 5}
 		for i in range(dic[type]):
@@ -227,7 +226,7 @@ def get_pre_ind(type, model='IPSL', phys=1):
 		result /= dic[type]
 		return result
 
-	elif (model == 'MIRO'):
+	elif model == 'MIRO':
 		result = np.zeros((36, 72))
 		dic = {'hist-GHG': 3, 'hist-aer': 3, 'hist-nat': 3, 'historical': 50}
 		for i in range(dic[type]):
@@ -253,7 +252,7 @@ def get_pre_ind(type, model='IPSL', phys=1):
 		result /= dic[type]
 		return result
 
-	elif (model == 'NorESM2'):
+	elif model == 'NorESM2':
 		result = np.zeros((36, 72))
 		dic = {'hist-GHG': 3, 'hist-aer': 3, 'hist-nat': 3, 'historical': 3}
 		for i in range(dic[type]):
@@ -266,7 +265,7 @@ def get_pre_ind(type, model='IPSL', phys=1):
 		result /= dic[type]
 		return result
 
-	elif (model == 'CNRM'):
+	elif model == 'CNRM':
 		result = np.zeros((36, 72))
 		dic = {'hist-GHG': 9, 'hist-aer': 10, 'hist-nat': 10, 'historical': 30}
 		for i in range(dic[type]):
@@ -281,22 +280,22 @@ def get_pre_ind(type, model='IPSL', phys=1):
 
 
 # fonction renvoyant 1 simulation
-def get_simu(type, simu, model='IPSL', cluster=-1, filtrage=False):
+def get_simu(data_type: str, simu, model: str = 'IPSL', cluster: int = -1, filtering: bool = False):
 	if model == 'GISS':
 		phys = 1
 		i = simu
-		if (type == 'hist-aer'):
-			if (i == 6 or i == 7 or i == 8 or i == 9 or i == 10):
+		if data_type == 'hist-aer':
+			if i == 6 or i == 7 or i == 8 or i == 9 or i == 10:
 				phys = 2
-		elif (type == 'historical'):
-			if (i > 10):
+		elif data_type == 'historical':
+			if i > 10:
 				phys = 2
-		pre_ind = get_pre_ind(type, model=model, phys=phys)
+		pre_ind = get_pre_ind(data_type, model=model, phys=phys)
 
 	else:
-		pre_ind = get_pre_ind(type, model=model)
+		pre_ind = get_pre_ind(data_type, model=model)
 
-	fn = data_dir + model + '_' + type + '_' + str(simu) + '.nc'
+	fn = data_dir + model + '_' + data_type + '_' + str(simu) + '.nc'
 	f = nc4.Dataset(fn, 'r')
 	# print(f.variables['tas'][:].shape)
 	data = f.variables['tas'][50:]
@@ -304,14 +303,11 @@ def get_simu(type, simu, model='IPSL', cluster=-1, filtrage=False):
 
 	data = data - pre_ind
 	result = get_mean(data, cluster=cluster)
-	if (filtrage):
-		if (type == 'hist-GHG' or type == 'hist-aer'):
+	if filtering:
+		if data_type == 'hist-GHG' or data_type == 'hist-aer':
 			# result = bn.move_mean(result, window=5, min_count=1)
 			result = signal.filtfilt(b, a, result)
 	return result
-
-
-#
 
 
 # fonction renvoyant les simulations d'un certain type d'un modèle climatique
@@ -357,7 +353,7 @@ def get_data_forcage(data_type: str, model: str = 'IPSL', cluster: int = -1, fil
 
 	result = np.zeros((dic[data_type], 115))
 	for i in range(dic[data_type]):
-		result[i] = get_simu(type, i + 1, model, cluster, filtrage=filtrage)[0:115]
+		result[i] = get_simu(type, i + 1, model, cluster, filtering=filtrage)[0:115]
 
 	return result
 

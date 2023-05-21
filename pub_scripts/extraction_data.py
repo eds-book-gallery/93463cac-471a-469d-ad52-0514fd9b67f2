@@ -162,8 +162,8 @@ def get_data_forcage(data_type: str, model: str = 'IPSL', cluster: int = -1, fil
 # function to get the full dataset and processes it
 def get_data_set(model='IPSL', cluster=-1, normalis=False, filtrage=False):
 	liste_max = []
-	if (model != 'ALL'):
 
+	if model != 'ALL':
 		aer = get_data_forcage('hist-aer', model=model, cluster=cluster, filtrage=filtrage)[:, 0:115]
 		ghg = get_data_forcage('hist-GHG', model=model, cluster=cluster, filtrage=filtrage)[:, 0:115]
 		nat = get_data_forcage('hist-nat', model=model, cluster=cluster, filtrage=filtrage)[:, 0:115]
@@ -177,14 +177,12 @@ def get_data_set(model='IPSL', cluster=-1, normalis=False, filtrage=False):
 			historical = historical / max_hist
 
 	elif model == 'ALL':
-
 		# liste_models = ['CanESM5', 'CNRM', 'GISS', 'IPSL', 'ACCESS', 'BCC', 'FGOALS', 'HadGEM3', 'MIRO', 'ESM2',
 		#                'NorESM2','CESM2']
 		liste_models = [
 			'CanESM5', 'CNRM', 'IPSL', 'ACCESS', 'BCC', 'FGOALS',
 			'HadGEM3', 'MIRO', 'ESM2', 'NorESM2', 'CESM2', 'GISS'
 		]
-
 		aer = []
 		ghg = []
 		nat = []
@@ -192,7 +190,6 @@ def get_data_set(model='IPSL', cluster=-1, normalis=False, filtrage=False):
 
 		for model_curr in liste_models:
 			print(model_curr)
-
 			aer_curr = torch.tensor(
 				get_data_forcage('hist-aer', model=model_curr, cluster=cluster, filtrage=filtrage)[:, 0:115])
 			ghg_curr = torch.tensor(
@@ -224,8 +221,8 @@ def get_data_set(model='IPSL', cluster=-1, normalis=False, filtrage=False):
 # renvoie les simulations moyenne de modèle climtique
 # to get the mmean simulations of a model
 def get_mean_data_set(model='IPSL', normalis=False, cluster=-1, filtrage=False):
-	if model != 'ALL':
 
+	if model != 'ALL':
 		aer = np.mean(get_data_forcage('hist-aer', model=model, cluster=cluster, filtrage=filtrage), axis=0)
 		ghg = np.mean(get_data_forcage('hist-GHG', model=model, cluster=cluster, filtrage=filtrage), axis=0)
 		nat = np.mean(get_data_forcage('hist-nat', model=model, cluster=cluster, filtrage=filtrage), axis=0)
@@ -239,7 +236,6 @@ def get_mean_data_set(model='IPSL', normalis=False, cluster=-1, filtrage=False):
 			historical = historical / max_hist
 
 	elif model == 'ALL':
-
 		# liste_models = ['CanESM5', 'CNRM', 'GISS', 'IPSL', 'ACCESS', 'BCC', 'FGOALS', 'HadGEM3', 'MIRO', 'ESM2',
 		#                 'NorESM2','CESM2']
 		liste_models = [

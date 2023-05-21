@@ -477,7 +477,7 @@ def plot_mean_simus():
 		plt.savefig('figures/simus_moyenne_' + str(nom_for[i]))
 		plt.show()
 
-	for mod in liste_models:
+	for mod in LIST_MODELS:
 		data, hist = get_mean_data_set(model=mod)
 		plt.plot(hist, label=mod)
 	obs = get_obs()

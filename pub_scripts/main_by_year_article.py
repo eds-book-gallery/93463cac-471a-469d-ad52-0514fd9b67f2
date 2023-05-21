@@ -19,6 +19,18 @@ import extraction_data as extr  # fichier où sont rangés les codes permettant 
 import inverse_model as inver  # fichier où sont rangés les codes permettant de faire l'inversion variationelle
 
 
+BATCH_SIZE = 100
+
+LIST_MODELS = [
+	'CanESM5', 'CNRM', 'IPSL', 'ACCESS', 'BCC', 'FGOALS',
+	'HadGEM3', 'MIRO', 'ESM2', 'NorESM2', 'CESM2', 'GISS'
+]
+MODEL_TRUE_NAME = [
+	'CanESM5', 'CNRM-CM6-1', 'IPSL-CM6A-LR', 'ACCESS-ESM1-5', 'BCC-CSM2-MR', 'FGOALS-g3',
+	'HadGEM3', 'MIROC6', 'ESM2', 'NorESM2-LM', 'CESM2', 'GISS-E2-1-G', 'ALL'
+]
+
+
 # Fonction créant une arborescence pour stocker nos résultats
 def mkdir_p(path: str) -> None:
 	"""Creates a directory. equivalent to using mkdir -p on the command line"""
@@ -386,32 +398,27 @@ class Linear_mod(nn.Module):
 
 def main():
 	# taille du batch pour l'apprentissage des réseaux de neurones
-	BATCH_SIZE = 100
 
-LIST_MODELS = [
-	'CanESM5', 'CNRM', 'IPSL', 'ACCESS', 'BCC', 'FGOALS',
-	'HadGEM3', 'MIRO', 'ESM2', 'NorESM2', 'CESM2', 'GISS'
-]
-MODEL_TRUE_NAME = [
-	'CanESM5', 'CNRM-CM6-1', 'IPSL-CM6A-LR', 'ACCESS-ESM1-5', 'BCC-CSM2-MR', 'FGOALS-g3',
-	'HadGEM3', 'MIROC6', 'ESM2', 'NorESM2-LM', 'CESM2', 'GISS-E2-1-G', 'ALL'
-]
-loss_test_complete = []
-taille = [10]
-regul = [-1]
-modules_tot = [-1]
-for reg in regul:
-	for tai in taille:
-		for modu in range(11, 12):
-			root_folder = 'Result'
-			loss_cur = train_and_plot(
-				root_folder,
-				all=modu,
-				clus=-1,
-				normalis=True,
-				denormalis=True,
-				taille=tai,
-				filtrage=False,
-				regularisation=reg
-			)
-			loss_test_complete.append(loss_cur)
+	loss_test_complete = []
+	taille = [10]
+	regul = [-1]
+	modules_tot = [-1]
+	for reg in regul:
+		for tai in taille:
+			for modu in range(11, 12):
+				root_folder = 'Result'
+				loss_cur = train_and_plot(
+					root_folder,
+					all=modu,
+					clus=-1,
+					normalis=True,
+					denormalis=True,
+					taille=tai,
+					filtrage=False,
+					regularisation=reg
+				)
+				loss_test_complete.append(loss_cur)
+
+
+if __name__ == "__main__":
+	main()

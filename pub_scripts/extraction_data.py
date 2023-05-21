@@ -353,9 +353,7 @@ def get_data_set(model='IPSL', cluster=-1, normalis=False, filtrage=False):
 			nat = nat / max_hist
 			historical = historical / max_hist
 
-
-
-	elif (model == 'ALL'):
+	elif model == 'ALL':
 
 		# liste_models = ['CanESM5', 'CNRM', 'GISS', 'IPSL', 'ACCESS', 'BCC', 'FGOALS', 'HadGEM3', 'MIRO', 'ESM2',
 		#                'NorESM2','CESM2']

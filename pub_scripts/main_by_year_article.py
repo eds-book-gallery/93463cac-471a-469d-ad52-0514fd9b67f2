@@ -372,10 +372,10 @@ class LinearModel(nn.Module):
 		super(LinearModel, self).__init__()
 		self.linear = nn.Linear(3, 1, bias=False)
 
-	def forward(self, X):
-		x = self.linear(X.transpose(1, 2))
-
+	def forward(self, x):
+		x = self.linear(x.transpose(1, 2))
 		return x[:, :, 0]
+
 
 def main():
 	# taille du batch pour l'apprentissage des réseaux de neurones

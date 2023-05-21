@@ -29,16 +29,14 @@ LAT = f.variables['latitude'][:]
 
 # fonction faisant la moyenne spatiale d'une simulation
 # function for the spatial norm of a simulation
-def get_mean(data, cluster=-1):
+def get_mean(data: np.ndarray, cluster: int = -1):
 	t = np.zeros((data.shape[0]))
 	div = 0
-
 	for j in range(36):
 		for k in range(72):
 			if cluster == -1 or cluster_map[j, k] == cluster:
 				t += data[:, j, k] * np.cos(np.radians(LAT[j]))
 				div += np.cos(np.radians(LAT[j]))
-
 	t /= div
 	return t
 
@@ -74,6 +72,7 @@ def get_pre_ind(data_type: str, model: str = 'IPSL', phys: int = 1):
 		'NorESM2': {'hist-GHG': 3, 'hist-aer': 3, 'hist-nat': 3, 'historical': 3},
 		'CNRM': {'hist-GHG': 9, 'hist-aer': 10, 'hist-nat': 10, 'historical': 30}
 	}
+
 	result = np.zeros((36, 72))
 
 	if model == 'GISS':

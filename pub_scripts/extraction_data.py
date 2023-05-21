@@ -19,7 +19,7 @@ data_dir = 'data_pre_ind_2/'
 cluster_map = np.zeros((36, 72), dtype=int)
 cluster_map[-9:, :] = 1
 
-fn = data_dir + 'obs.nc'
+fn = os.path.join(data_dir, 'obs.nc')
 
 f = nc4.Dataset(fn, 'r')
 
@@ -48,7 +48,6 @@ def get_obs(cluster=-1):
 
 	f = nc4.Dataset(fn, 'r')
 	data = f.variables['temperature_anomaly'][:]
-
 	return get_mean(data, cluster=cluster)
 
 
@@ -179,8 +178,10 @@ def get_data_set(model='IPSL', cluster=-1, normalis=False, filtrage=False):
 
 		# liste_models = ['CanESM5', 'CNRM', 'GISS', 'IPSL', 'ACCESS', 'BCC', 'FGOALS', 'HadGEM3', 'MIRO', 'ESM2',
 		#                'NorESM2','CESM2']
-		liste_models = ['CanESM5', 'CNRM', 'IPSL', 'ACCESS', 'BCC', 'FGOALS', 'HadGEM3', 'MIRO', 'ESM2',
-		                'NorESM2', 'CESM2', 'GISS']
+		liste_models = [
+			'CanESM5', 'CNRM', 'IPSL', 'ACCESS', 'BCC', 'FGOALS',
+			'HadGEM3', 'MIRO', 'ESM2', 'NorESM2', 'CESM2', 'GISS'
+		]
 
 		aer = []
 		ghg = []
@@ -239,22 +240,32 @@ def get_mean_data_set(model='IPSL', normalis=False, cluster=-1, filtrage=False):
 
 		# liste_models = ['CanESM5', 'CNRM', 'GISS', 'IPSL', 'ACCESS', 'BCC', 'FGOALS', 'HadGEM3', 'MIRO', 'ESM2',
 		#                 'NorESM2','CESM2']
-		liste_models = ['CanESM5', 'CNRM', 'IPSL', 'ACCESS', 'BCC', 'FGOALS', 'HadGEM3', 'MIRO', 'ESM2',
-		                'NorESM2', 'CESM2', 'GISS']
+		liste_models = [
+			'CanESM5', 'CNRM', 'IPSL', 'ACCESS', 'BCC', 'FGOALS',
+			'HadGEM3', 'MIRO', 'ESM2', 'NorESM2', 'CESM2', 'GISS'
+		]
 		result = []
 		historical = []
 		for model_curr in liste_models:
 
-			aer_ipsl = np.mean(get_data_forcage('hist-aer', model=model_curr, cluster=cluster, filtrage=filtrage),
-			                   axis=0)
-			ghg_ipsl = np.mean(get_data_forcage('hist-GHG', model=model_curr, cluster=cluster, filtrage=filtrage),
-			                   axis=0)
-			nat_ipsl = np.mean(get_data_forcage('hist-nat', model=model_curr, cluster=cluster, filtrage=filtrage),
-			                   axis=0)
+			aer_ipsl = np.mean(
+				get_data_forcage('hist-aer', model=model_curr, cluster=cluster, filtrage=filtrage),
+				axis=0
+			)
+			ghg_ipsl = np.mean(
+				get_data_forcage('hist-GHG', model=model_curr, cluster=cluster, filtrage=filtrage),
+				axis=0
+			)
+			nat_ipsl = np.mean(
+				get_data_forcage('hist-nat', model=model_curr, cluster=cluster, filtrage=filtrage),
+				axis=0
+			)
 			historical_ipsl = np.mean(
-				get_data_forcage('historical', model=model_curr, cluster=cluster, filtrage=filtrage), axis=0)
+				get_data_forcage('historical', model=model_curr, cluster=cluster, filtrage=filtrage),
+				axis=0
+			)
 
-			if (normalis):
+			if normalis:
 				max_hist = np.max(historical_ipsl)
 
 				aer_ipsl = aer_ipsl / max_hist
@@ -287,7 +298,7 @@ def get_std_data_set(model='IPSL', cluster=-1, normalis=False, filtrage=False):
 		ghg = get_data_forcage('hist-GHG', model=model, cluster=cluster, filtrage=filtrage)[:, 0:115]
 		nat = get_data_forcage('hist-nat', model=model, cluster=cluster, filtrage=filtrage)[:, 0:115]
 		historical = get_data_forcage('historical', model=model, cluster=cluster, filtrage=filtrage)[:, 0:115]
-		if (normalis):
+		if normalis:
 			max_hist = np.max(np.mean(historical, axis=0))
 			aer = aer / max_hist
 			ghg = ghg / max_hist
@@ -303,8 +314,10 @@ def get_std_data_set(model='IPSL', cluster=-1, normalis=False, filtrage=False):
 
 		# liste_models = ['CanESM5', 'CNRM', 'GISS', 'IPSL', 'ACCESS', 'BCC', 'FGOALS', 'HadGEM3', 'MIRO', 'ESM2',
 		#                 'NorESM2','CESM2']
-		liste_models = ['CanESM5', 'CNRM', 'IPSL', 'ACCESS', 'BCC', 'FGOALS', 'HadGEM3', 'MIRO', 'ESM2',
-		                'NorESM2', 'CESM2', 'GISS']
+		liste_models = [
+			'CanESM5', 'CNRM', 'IPSL', 'ACCESS', 'BCC', 'FGOALS',
+			'HadGEM3', 'MIRO', 'ESM2', 'NorESM2', 'CESM2', 'GISS'
+		]
 		result = []
 		historical = []
 		for model_curr in liste_models:
@@ -312,9 +325,13 @@ def get_std_data_set(model='IPSL', cluster=-1, normalis=False, filtrage=False):
 			aer_ipsl = get_data_forcage('hist-aer', model=model_curr, cluster=cluster, filtrage=filtrage)[:, 0:115]
 			ghg_ipsl = get_data_forcage('hist-GHG', model=model_curr, cluster=cluster, filtrage=filtrage)[:, 0:115]
 			nat_ipsl = get_data_forcage('hist-nat', model=model_curr, cluster=cluster, filtrage=filtrage)[:, 0:115]
-			historical_ipsl = get_data_forcage('historical', model=model_curr, cluster=cluster, filtrage=filtrage)[:,
-			                  0:115]
-			if (normalis):
+			historical_ipsl = get_data_forcage(
+				'historical',
+				model=model_curr,
+				cluster=cluster,
+				filtrage=filtrage
+			)[:, 0:115]
+			if normalis:
 				max_hist = np.max(np.mean(historical_ipsl, axis=0))
 				aer_ipsl = aer_ipsl / max_hist
 				ghg_ipsl = ghg_ipsl / max_hist
@@ -351,7 +368,7 @@ def get_map_compar(year1, year2, model='CNRM'):
 
 		result = np.zeros((36, 72))
 		# print(type)
-		if (type == 'hist-GHG'):
+		if type == 'hist-GHG':
 			for i in range(2):
 				fn = data_dir + model + '_' + type + '_' + str(i + 1) + '.nc'
 				f = nc4.Dataset(fn, 'r')
@@ -381,13 +398,22 @@ def get_map_compar(year1, year2, model='CNRM'):
 
 	map_img = mpimg.imread('carte_terre.png')
 	plt.figure(figsize=(14, 8))
-	hmax = sns.heatmap(np.flipud(diff), alpha=0.5, annot=False, zorder=2, xticklabels=False,
-	                   yticklabels=False
-	                   , square=True, cmap='seismic')
-	hmax.imshow(map_img,
-	            aspect=hmax.get_aspect(),
-	            extent=hmax.get_xlim() + hmax.get_ylim(),
-	            zorder=1)
+	hmax = sns.heatmap(
+		np.flipud(diff),
+		alpha=0.5,
+		annot=False,
+		zorder=2,
+		xticklabels=False,
+		yticklabels=False,
+		square=True,
+		cmap='seismic'
+	)
+	hmax.imshow(
+		map_img,
+		aspect=hmax.get_aspect(),
+		extent=hmax.get_xlim() + hmax.get_ylim(),
+		zorder=1
+	)
 
 	plt.xticks([12, 24, 36, 48, 60], ['120°W', '60°W', '0°', '60°E', '120°E'])
 	plt.yticks([8, 13, 18, 22, 28], ['60°N', '30°N', '0°', '30°S', '60°S'])

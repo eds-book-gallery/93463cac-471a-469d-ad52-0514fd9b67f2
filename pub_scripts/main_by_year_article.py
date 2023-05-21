@@ -29,7 +29,7 @@ def mkdir_p(path: str) -> None:
 # créer la classe de data set de notre réseau de neurones
 # all représente le modèle climatique étudié, si all vaut -1 on étudie tout les modèles en même temps
 class MonDataset(Dataset):
-	def __init__(self, ghg, aer, nat, historical, all=0, train_test: str = 'train'):
+	def __init__(self, ghg, aer, nat, historical, all: int = 0, train_test: str = 'train'):
 
 		self.ghg = ghg
 
@@ -40,7 +40,7 @@ class MonDataset(Dataset):
 
 		self.all = all
 
-	def __len__(self):
+	def __len__(self) -> int:
 		# On fixe arbitrairement une itération à l'étude de 50000 cas
 		return 50000
 
@@ -98,10 +98,10 @@ class MonDataset_inverse(Dataset):
 		self.aer = aer
 		self.nat = nat
 
-	def __len__(self):
+	def __len__(self) -> int:
 		return 100
 
-	def __getitem__(self, item):
+	def __getitem__(self, item) -> torch.Tensor:
 		ghg_max = self.ghg.shape[0] - 1
 		aer_max = self.aer.shape[0] - 1
 		nat_max = self.nat.shape[0] - 1

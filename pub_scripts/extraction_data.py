@@ -68,7 +68,7 @@ def get_pre_ind(data_type: str, model: str = 'IPSL', phys: int = 1):
 		'GISS': {'hist-GHG': 10, 'hist-aer': 12, 'hist-nat': 20, 'historical': 19},
 		'HadGEM3': {'hist-GHG': 4, 'hist-aer': 4, 'hist-nat': 4, 'historical': 5},
 		'MIRO': {'hist-GHG': 3, 'hist-aer': 3, 'hist-nat': 3, 'historical': 50},
-		'ESM2': {'hist-GHG': 5, 'hist-aer': 5, 'hist-nat': 5, 'historical': 7},
+		'ESM2': {'hist-GHG': 5, 'hist-aer': 5, 'hist-nat': 5, 'historical': 7},     # TODO: check the historical value
 		'NorESM2': {'hist-GHG': 3, 'hist-aer': 3, 'hist-nat': 3, 'historical': 3},
 		'CNRM': {'hist-GHG': 9, 'hist-aer': 10, 'hist-nat': 10, 'historical': 30}
 	}
@@ -146,7 +146,7 @@ def get_data_forcage(data_type: str, model: str = 'IPSL', cluster: int = -1, fil
 		'GISS': {'hist-GHG': 10, 'hist-aer': 12, 'hist-nat': 20, 'historical': 19},
 		'HadGEM3': {'hist-GHG': 4, 'hist-aer': 4, 'hist-nat': 4, 'historical': 5},
 		'MIRO': {'hist-GHG': 3, 'hist-aer': 3, 'hist-nat': 3, 'historical': 50},
-		'ESM2': {'hist-GHG': 5, 'hist-aer': 5, 'hist-nat': 5, 'historical': 5},
+		'ESM2': {'hist-GHG': 5, 'hist-aer': 5, 'hist-nat': 5, 'historical': 5},     # TODO: check the historical value
 		'NorESM2': {'hist-GHG': 3, 'hist-aer': 3, 'hist-nat': 3, 'historical': 3}
 	}
 

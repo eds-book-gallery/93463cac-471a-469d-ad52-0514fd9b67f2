@@ -31,26 +31,16 @@ LAT = f.variables['latitude'][:]
 # function for the spatial norm of a simulation
 def get_mean(data, cluster=-1):
 	t = np.zeros((data.shape[0]))
-	if (cluster == -1):
-		div = 0
-		for j in range(36):
-			for k in range(72):
+	div = 0
+
+	for j in range(36):
+		for k in range(72):
+			if cluster == -1 or cluster_map[j, k] == cluster:
 				t += data[:, j, k] * np.cos(np.radians(LAT[j]))
-
 				div += np.cos(np.radians(LAT[j]))
-		t /= div
-		return t
-	else:
-		div = 0
-		for j in range(36):
-			for k in range(72):
-				if (cluster_map[j, k] == cluster):
-					t += data[:, j, k] * np.cos(np.radians(LAT[j]))
-					div += np.cos(np.radians(LAT[j]))
 
-		t /= div
-
-		return t
+	t /= div
+	return t
 
 
 # fonction extrayant les observations

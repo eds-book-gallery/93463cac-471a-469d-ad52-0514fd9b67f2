@@ -6,7 +6,7 @@ from scipy.stats.kde import gaussian_kde
 from numpy import linspace
 import extraction_data_2 as extr
 
-ALL_data = np.load(os.path.join('figures','ALL','inver.npy'))
+ALL_data = np.load(os.path.join('figures', 'ALL', 'inver.npy'))
 print(ALL_data.shape)
 data = np.sort(ALL_data[:, 2, 93])
 data = data[30:1200 - 30]

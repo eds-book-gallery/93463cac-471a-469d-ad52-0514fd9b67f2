@@ -23,7 +23,7 @@ std_nat = np.std(ALL_data[:, 2], axis=0)
 obs = np.array(extr.get_obs(cluster=-1))[0:115] * 1.06
 
 C = 0
-if (C == 1):
+if C == 1:
 	plt.plot(np.array(obs), 'black', label="OBS")
 	plt.plot(moy_ghg, 'red', label='GHG')
 	plt.fill_between(np.arange(115), moy_ghg - std_ghg, moy_ghg + std_ghg, facecolor='red', alpha=0.2)
@@ -31,8 +31,10 @@ if (C == 1):
 	plt.fill_between(np.arange(115), moy_aer - std_aer, moy_aer + std_aer, facecolor='blue', alpha=0.2)
 	plt.plot(moy_nat, 'green', label='NAT')
 	plt.fill_between(np.arange(115), moy_nat - std_nat, moy_nat + std_nat, facecolor='green', alpha=0.2)
-	plt.xticks([0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120],
-	           ['1900', '1910', '1920', '1930', '1940', '1950', '1960', '1970', '1980', '1990', '2000', '2010', '2020'])
+	plt.xticks(
+		[0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120],
+		['1900', '1910', '1920', '1930', '1940', '1950', '1960', '1970', '1980', '1990', '2000', '2010', '2020']
+	)
 
 	plt.ylabel('K')
 	plt.xlabel('Years')

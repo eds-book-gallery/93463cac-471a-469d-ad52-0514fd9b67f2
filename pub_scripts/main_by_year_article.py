@@ -67,10 +67,11 @@ class MonDataset(Dataset):
 			# On choisit au hasard une simulation de chaque type du modèle
 
 		elif self.train_test == 'test':
-			# même fonctionnement mais en ne prenant que le modèle all
-			model = self.all
-			if model == -1:
+			if self.all == -1:
 				model = random.randint(0, len(self.ghg) - 1)
+			# même fonctionnement mais en ne prenant que le modèle all
+			else:
+				model = self.all
 
 		ghg_max = self.ghg[model].shape[0] - 1
 		aer_max = self.aer[model].shape[0] - 1

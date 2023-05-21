@@ -446,7 +446,7 @@ def plot_mean_simus() -> None:
 		[0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120],
 		['1900', '1910', '1920', '1930', '1940', '1950', '1960', '1970', '1980', '1990', '2000', '2010', '2020']
 	)
-	plt.savefig('figures/simus_moyenne_hist')
+	plt.savefig(os.path.join('figures', 'simus_moyenne_hist'))
 	plt.show()
 
 #

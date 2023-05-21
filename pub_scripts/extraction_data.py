@@ -285,7 +285,7 @@ def get_simu(data_type: str, simu, model: str = 'IPSL', cluster: int = -1, filte
 		phys = 1
 		i = simu
 		if data_type == 'hist-aer':
-			if i == 6 or i == 7 or i == 8 or i == 9 or i == 10:
+			if {6, 7, 8, 9, 10}:
 				phys = 2
 		elif data_type == 'historical':
 			if i > 10:

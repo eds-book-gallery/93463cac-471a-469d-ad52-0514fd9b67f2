@@ -1,10 +1,12 @@
+from __future__ import annotations
+
 import torch
 import torch.nn as nn
 from torch.autograd import Variable
 
 
 # fonction réalisant l'inversion variationelle
-def model_inverse(entry, cible, model, alpha: float = 0.005):
+def model_inverse(entry, cible, model, alpha: float = 0.005) -> tuple:
 	criterion = nn.MSELoss()
 
 	X = Variable(entry.clone().detach(), requires_grad=True)

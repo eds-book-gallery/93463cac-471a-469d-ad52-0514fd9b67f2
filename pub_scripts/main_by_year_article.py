@@ -25,6 +25,7 @@ def mkdir_p(path: str) -> None:
 	if not os.path.exists(path):
 		os.makedirs(path)
 
+
 # créer la classe de data set de notre réseau de neurones
 # all représente le modèle climatique étudié, si all vaut -1 on étudie tout les modèles en même temps
 class MonDataset(Dataset):
@@ -123,15 +124,12 @@ def train_model(data, data_test, lr=0.001, nb_epoch=100, taille=3, regularisatio
 	print(pytorch_total_params)
 
 	criterion = nn.MSELoss()
-	if (regularisation != -1):
+	if regularisation != -1:
 		optim = torch.optim.Adam(model.parameters(), lr=lr, weight_decay=regularisation)
-
 		criterion2 = nn.MSELoss()
 		optim2 = torch.optim.Adam(model_linear.parameters(), lr=lr, weight_decay=regularisation)
 	else:
-
 		optim = torch.optim.Adam(model.parameters(), lr=lr)
-
 		criterion2 = nn.MSELoss()
 		optim2 = torch.optim.Adam(model_linear.parameters(), lr=lr)
 

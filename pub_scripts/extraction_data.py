@@ -20,17 +20,28 @@ LIST_MODELS = [
 	'HadGEM3', 'MIRO', 'ESM2', 'NorESM2', 'CESM2', 'GISS'
 ]
 
-b, a = signal.butter(20, 1 / 5, btype='lowpass')
+MODEL_DIC = {
+	'IPSL': {'hist-GHG': 10, 'hist-aer': 10, 'hist-nat': 10, 'historical': 32},
+	'ACCESS': {'hist-GHG': 3, 'hist-aer': 3, 'hist-nat': 3, 'historical': 30},
+	'CESM2': {'hist-GHG': 3, 'hist-aer': 2, 'hist-nat': 3, 'historical': 11},
+	'BCC': {'hist-GHG': 3, 'hist-aer': 3, 'hist-nat': 3, 'historical': 3},
+	'CanESM5': {'hist-GHG': 50, 'hist-aer': 30, 'hist-nat': 50, 'historical': 65},
+	'FGOALS': {'hist-GHG': 3, 'hist-aer': 3, 'hist-nat': 3, 'historical': 6},
+	'GISS': {'hist-GHG': 10, 'hist-aer': 12, 'hist-nat': 20, 'historical': 19},
+	'HadGEM3': {'hist-GHG': 4, 'hist-aer': 4, 'hist-nat': 4, 'historical': 5},
+	'MIRO': {'hist-GHG': 3, 'hist-aer': 3, 'hist-nat': 3, 'historical': 50},
+	'ESM2': {'hist-GHG': 5, 'hist-aer': 5, 'hist-nat': 5, 'historical': 7},
+	'NorESM2': {'hist-GHG': 3, 'hist-aer': 3, 'hist-nat': 3, 'historical': 3},
+	'CNRM': {'hist-GHG': 9, 'hist-aer': 10, 'hist-nat': 10, 'historical': 30}
+}
 
+b, a = signal.butter(20, 1 / 5, btype='lowpass')
 data_dir = 'data_pre_ind_2'
 
 cluster_map = np.zeros((36, 72), dtype=int)
 cluster_map[-9:, :] = 1
-
 fn = os.path.join(data_dir, 'obs.nc')
-
 f = nc4.Dataset(fn, 'r')
-
 data = f.variables['temperature_anomaly'][:]
 LAT = f.variables['latitude'][:]
 
@@ -100,25 +111,10 @@ test = get_obs()
 # fonction extrayant la valeur pré-industrielle moyenne d'un modèle climatique
 # function to get the pre-industrial mean value of a climatic model
 def get_pre_ind(data_type: str, model: str = 'IPSL', phys: int = 1):
-	model_dic = {
-		'IPSL': {'hist-GHG': 10, 'hist-aer': 10, 'hist-nat': 10, 'historical': 32},
-		'ACCESS': {'hist-GHG': 3, 'hist-aer': 3, 'hist-nat': 3, 'historical': 30},
-		'CESM2': {'hist-GHG': 3, 'hist-aer': 2, 'hist-nat': 3, 'historical': 11},
-		'BCC': {'hist-GHG': 3, 'hist-aer': 3, 'hist-nat': 3, 'historical': 3},
-		'CanESM5': {'hist-GHG': 50, 'hist-aer': 30, 'hist-nat': 50, 'historical': 65},
-		'FGOALS': {'hist-GHG': 3, 'hist-aer': 3, 'hist-nat': 3, 'historical': 6},
-		'GISS': {'hist-GHG': 10, 'hist-aer': 12, 'hist-nat': 20, 'historical': 19},
-		'HadGEM3': {'hist-GHG': 4, 'hist-aer': 4, 'hist-nat': 4, 'historical': 5},
-		'MIRO': {'hist-GHG': 3, 'hist-aer': 3, 'hist-nat': 3, 'historical': 50},
-		'ESM2': {'hist-GHG': 5, 'hist-aer': 5, 'hist-nat': 5, 'historical': 7},     # TODO: check the historical value
-		'NorESM2': {'hist-GHG': 3, 'hist-aer': 3, 'hist-nat': 3, 'historical': 3},
-		'CNRM': {'hist-GHG': 9, 'hist-aer': 10, 'hist-nat': 10, 'historical': 30}
-	}
-
 	result = np.zeros((36, 72))
 
 	if model == 'GISS':
-		dic = model_dic[model]
+		dic = MODEL_DIC[model]
 		if data_type == 'hist-aer':
 			divisor = 7 if phys == 1 else 5
 			if phys == 1:
@@ -135,8 +131,8 @@ def get_pre_ind(data_type: str, model: str = 'IPSL', phys: int = 1):
 			divisor = 5
 			idx = [i for i in range(dic[data_type]) if i in {5, 6, 7, 8, 9}]
 	else:
-		idx = model_dic[model][data_type]
-		divisor = model_dic[model][data_type]
+		idx = MODEL_DIC[model][data_type]
+		divisor = MODEL_DIC[model][data_type]
 
 	for i in range(idx):
 		fn = os.path.join(data_dir, f"{model}_{data_type}_{i + 1}.nc")
@@ -174,23 +170,8 @@ def get_simu(data_type: str, simu, model: str = 'IPSL', cluster: int = -1, filte
 # fonction renvoyant les simulations d'un certain type d'un modèle climatique
 # function to get the simulations from a specific model
 def get_data_forcage(data_type: str, model: str = 'IPSL', cluster: int = -1, filtrage: bool = False):
-	model_dic = {
-		'IPSL': {'hist-GHG': 10, 'hist-aer': 10, 'hist-nat': 10, 'historical': 32},
-		'CNRM': {'hist-GHG': 9, 'hist-aer': 10, 'hist-nat': 10, 'historical': 30},
-		'CESM2': {'hist-GHG': 3, 'hist-aer': 2, 'hist-nat': 3, 'historical': 11},
-		'ACCESS': {'hist-GHG': 3, 'hist-aer': 3, 'hist-nat': 3, 'historical': 30},
-		'BCC': {'hist-GHG': 3, 'hist-aer': 3, 'hist-nat': 3, 'historical': 3},
-		'CanESM5': {'hist-GHG': 50, 'hist-aer': 30, 'hist-nat': 50, 'historical': 65},
-		'FGOALS': {'hist-GHG': 3, 'hist-aer': 3, 'hist-nat': 3, 'historical': 6},
-		'GISS': {'hist-GHG': 10, 'hist-aer': 12, 'hist-nat': 20, 'historical': 19},
-		'HadGEM3': {'hist-GHG': 4, 'hist-aer': 4, 'hist-nat': 4, 'historical': 5},
-		'MIRO': {'hist-GHG': 3, 'hist-aer': 3, 'hist-nat': 3, 'historical': 50},
-		'ESM2': {'hist-GHG': 5, 'hist-aer': 5, 'hist-nat': 5, 'historical': 5},     # TODO: check the historical value
-		'NorESM2': {'hist-GHG': 3, 'hist-aer': 3, 'hist-nat': 3, 'historical': 3}
-	}
-
-	result = np.zeros((model_dic[model][data_type], 115))
-	for i in range(model_dic[model][data_type]):
+	result = np.zeros((MODEL_DIC[model][data_type], 115))
+	for i in range(MODEL_DIC[model][data_type]):
 		result[i] = get_simu(data_type, i + 1, model, cluster, filtering=filtrage)[0:115]
 
 	return result

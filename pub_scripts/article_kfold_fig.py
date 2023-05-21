@@ -115,17 +115,29 @@ for model in range(12):
 	axs[i, j].fill_between(np.arange(115), moy_nat - std_nat, moy_nat + std_nat, facecolor='green', alpha=0.2)
 
 	axs[i, j].plot(data_true_inv[0, 0], 'purple', label='GHG')
-	axs[i, j].fill_between(np.arange(115), data_true_inv[0, 0] - std_true_inv[0, 0],
-	                       data_true_inv[0, 0] + std_true_inv[0, 0],
-	                       facecolor='purple', alpha=0.2)
+	axs[i, j].fill_between(
+		np.arange(115),
+		data_true_inv[0, 0] - std_true_inv[0, 0],
+		data_true_inv[0, 0] + std_true_inv[0, 0],
+		facecolor='purple',
+		alpha=0.2
+	)
 	axs[i, j].plot(data_true_inv[0, 1], 'darkblue', label='AER')
-	axs[i, j].fill_between(np.arange(115), data_true_inv[0, 1] - std_true_inv[0, 1],
-	                       data_true_inv[0, 1] + std_true_inv[0, 1],
-	                       facecolor='darkblue', alpha=0.2)
+	axs[i, j].fill_between(
+		np.arange(115),
+		data_true_inv[0, 1] - std_true_inv[0, 1],
+		data_true_inv[0, 1] + std_true_inv[0, 1],
+		facecolor='darkblue',
+		alpha=0.2
+	)
 	axs[i, j].plot(data_true_inv[0, 2], 'olive', label='NAT')
-	axs[i, j].fill_between(np.arange(115), data_true_inv[0, 2] - std_true_inv[0, 2],
-	                       data_true_inv[0, 2] + std_true_inv[0, 2],
-	                       facecolor='olive', alpha=0.2)
+	axs[i, j].fill_between(
+		np.arange(115),
+		data_true_inv[0, 2] - std_true_inv[0, 2],
+		data_true_inv[0, 2] + std_true_inv[0, 2],
+		facecolor='olive',
+		alpha=0.2
+	)
 	axs[i, j].set_title(model_true_name[model])
 	axs[i, j].set_ylim((-1.4, 2.2))
 

@@ -424,7 +424,7 @@ def plot_mean_simus() -> None:
 
 			# print(hist.shape)
 			plt.plot(data[0, i], label=mod)
-		plt.title('Simulation ' + str(nom_for[i]) + ' moyenne pour les modèles climatiques')
+		plt.title(f'Simulation {nom_for[i]} mean for climatic models')
 		plt.legend(loc='best')
 		plt.tight_layout()
 		plt.xticks(

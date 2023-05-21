@@ -59,224 +59,51 @@ test = get_obs()
 
 # fonction extrayant la valeur pré-industrielle moyenne d'un modèle climatique
 # function to get the pre-industrial mean value of a climatic model
-def get_pre_ind(type, model='IPSL', phys=1):
-	if model == 'IPSL':
-		result = np.zeros((36, 72))
-		dic = {'hist-GHG': 10, 'hist-aer': 10, 'hist-nat': 10, 'historical': 32}
-		for i in range(dic[type]):
-			fn = data_dir + model + '_' + type + '_' + str(i + 1) + '.nc'
-			f = nc4.Dataset(fn, 'r')
+def get_pre_ind(data_type: str, model: str = 'IPSL', phys: int = 1):
+	model_dic = {
+		'IPSL': {'hist-GHG': 10, 'hist-aer': 10, 'hist-nat': 10, 'historical': 32},
+		'ACCESS': {'hist-GHG': 3, 'hist-aer': 3, 'hist-nat': 3, 'historical': 30},
+		'CESM2': {'hist-GHG': 3, 'hist-aer': 2, 'hist-nat': 3, 'historical': 11},
+		'BCC': {'hist-GHG': 3, 'hist-aer': 3, 'hist-nat': 3, 'historical': 3},
+		'CanESM5': {'hist-GHG': 50, 'hist-aer': 30, 'hist-nat': 50, 'historical': 65},
+		'FGOALS': {'hist-GHG': 3, 'hist-aer': 3, 'hist-nat': 3, 'historical': 6},
+		'GISS': {'hist-GHG': 10, 'hist-aer': 12, 'hist-nat': 20, 'historical': 19},
+		'HadGEM3': {'hist-GHG': 4, 'hist-aer': 4, 'hist-nat': 4, 'historical': 5},
+		'MIRO': {'hist-GHG': 3, 'hist-aer': 3, 'hist-nat': 3, 'historical': 50},
+		'ESM2': {'hist-GHG': 5, 'hist-aer': 5, 'hist-nat': 5, 'historical': 7},
+		'NorESM2': {'hist-GHG': 3, 'hist-aer': 3, 'hist-nat': 3, 'historical': 3},
+		'CNRM': {'hist-GHG': 9, 'hist-aer': 10, 'hist-nat': 10, 'historical': 30}
+	}
+	result = np.zeros((36, 72))
 
-			data = f.variables['tas'][0:50]
-
-			result += np.mean(data, axis=0)
-		result /= dic[type]
-		return result
-
-	elif model == 'ACCESS':
-		result = np.zeros((36, 72))
-		dic = {'hist-GHG': 3, 'hist-aer': 3, 'hist-nat': 3, 'historical': 30}
-		for i in range(dic[type]):
-			fn = data_dir + model + '_' + type + '_' + str(i + 1) + '.nc'
-			f = nc4.Dataset(fn, 'r')
-
-			data = f.variables['tas'][0:50]
-
-			result += np.mean(data, axis=0)
-		result /= dic[type]
-		return result
-
-	elif model == 'CESM2':
-		result = np.zeros((36, 72))
-		dic = {'hist-GHG': 3, 'hist-aer': 2, 'hist-nat': 3, 'historical': 11}
-		for i in range(dic[type]):
-			fn = data_dir + model + '_' + type + '_' + str(i + 1) + '.nc'
-			f = nc4.Dataset(fn, 'r')
-
-			data = f.variables['tas'][0:50]
-
-			result += np.mean(data, axis=0)
-		result /= dic[type]
-		return result
-
-	elif model == 'BCC':
-		result = np.zeros((36, 72))
-		dic = {'hist-GHG': 3, 'hist-aer': 3, 'hist-nat': 3, 'historical': 3}
-		for i in range(dic[type]):
-			fn = data_dir + model + '_' + type + '_' + str(i + 1) + '.nc'
-			f = nc4.Dataset(fn, 'r')
-
-			data = f.variables['tas'][0:50]
-
-			result += np.mean(data, axis=0)
-		result /= dic[type]
-		return result
-
-	elif model == 'CanESM5':
-		result = np.zeros((36, 72))
-		dic = {'hist-GHG': 50, 'hist-aer': 30, 'hist-nat': 50, 'historical': 65}
-		for i in range(dic[type]):
-			fn = data_dir + model + '_' + type + '_' + str(i + 1) + '.nc'
-			f = nc4.Dataset(fn, 'r')
-
-			data = f.variables['tas'][0:50]
-
-			result += np.mean(data, axis=0)
-		result /= dic[type]
-		return result
-
-	elif model == 'FGOALS':
-		result = np.zeros((36, 72))
-		dic = {'hist-GHG': 3, 'hist-aer': 3, 'hist-nat': 3, 'historical': 6}
-		for i in range(dic[type]):
-			fn = data_dir + model + '_' + type + '_' + str(i + 1) + '.nc'
-			f = nc4.Dataset(fn, 'r')
-
-			data = f.variables['tas'][0:50]
-
-			result += np.mean(data, axis=0)
-		result /= dic[type]
-		return result
-
-	elif model == 'GISS':
-		if type == 'hist-aer':
+	if model == 'GISS':
+		dic = model_dic[model]
+		if data_type == 'hist-aer':
+			divisor = 7 if phys == 1 else 5
 			if phys == 1:
-				result = np.zeros((36, 72))
-				dic = {'hist-GHG': 10, 'hist-aer': 12, 'hist-nat': 20, 'historical': 19}
-				for i in range(dic[type]):
-					if (i != 5 and i != 6 and i != 7 and i != 8 and i != 9):
-						fn = data_dir + model + '_' + type + '_' + str(i + 1) + '.nc'
-						f = nc4.Dataset(fn, 'r')
-
-						data = f.variables['tas'][0:50]
-
-						result += np.mean(data, axis=0)
-				result /= 7
-				return result
-
+				idx = [i for i in range(dic[data_type]) if i not in {5, 6, 7, 8, 9}]
 			else:
-				result = np.zeros((36, 72))
-				dic = {'hist-GHG': 10, 'hist-aer': 12, 'hist-nat': 20, 'historical': 19}
-				for i in range(dic[type]):
-					if (i == 5 or i == 6 or i == 7 or i == 8 or i == 9):
-						fn = data_dir + model + '_' + type + '_' + str(i + 1) + '.nc'
-						f = nc4.Dataset(fn, 'r')
-
-						data = f.variables['tas'][0:50]
-
-						result += np.mean(data, axis=0)
-				result /= 5
-				return result
-		elif type == 'historical':
+				idx = [i for i in range(dic[data_type]) if i in {5, 6, 7, 8, 9}]
+		elif data_type == 'historical':
+			divisor = 10 if phys == 1 else 9
 			if phys == 1:
-				result = np.zeros((36, 72))
-				dic = {'hist-GHG': 10, 'hist-aer': 12, 'hist-nat': 20, 'historical': 19}
-				for i in range(dic[type]):
-					if i < 10:
-						fn = data_dir + model + '_' + type + '_' + str(i + 1) + '.nc'
-						f = nc4.Dataset(fn, 'r')
-						# print(i+1)
-						# print(f.variables['tas'][:].shape)
-
-						data = f.variables['tas'][0:50]
-
-						result += np.mean(data, axis=0)
-				result /= 10
-				return result
-
+				idx = [i for i in range(dic[data_type]) if i < 10]
 			else:
-				result = np.zeros((36, 72))
-				dic = {'hist-GHG': 10, 'hist-aer': 12, 'hist-nat': 20, 'historical': 19}
-				for i in range(dic[type]):
-					if i >= 10:
-						fn = data_dir + model + '_' + type + '_' + str(i + 1) + '.nc'
-						f = nc4.Dataset(fn, 'r')
-						# print(i+1)
-						# print(f.variables['tas'][:].shape)
-
-						data = f.variables['tas'][0:50]
-
-						result += np.mean(data, axis=0)
-				result /= 9
-				return result
+				idx = [i for i in range(dic[data_type]) if i >= 10]
 		else:
-			result = np.zeros((36, 72))
-			dic = {'hist-GHG': 10, 'hist-aer': 12, 'hist-nat': 20, 'historical': 19}
-			for i in range(dic[type]):
-				if i == 5 or i == 6 or i == 7 or i == 8 or i == 9:
-					fn = data_dir + model + '_' + type + '_' + str(i + 1) + '.nc'
-					f = nc4.Dataset(fn, 'r')
+			divisor = 5
+			idx = [i for i in range(dic[data_type]) if i in {5, 6, 7, 8, 9}]
+	else:
+		idx = model_dic[model][data_type]
+		divisor = model_dic[model][data_type]
 
-					data = f.variables['tas'][0:50]
-
-					result += np.mean(data, axis=0)
-			result /= 5
-			return result
-
-	elif model == 'HadGEM3':
-		result = np.zeros((36, 72))
-		dic = {'hist-GHG': 4, 'hist-aer': 4, 'hist-nat': 4, 'historical': 5}
-		for i in range(dic[type]):
-			fn = data_dir + model + '_' + type + '_' + str(i + 1) + '.nc'
-			f = nc4.Dataset(fn, 'r')
-
-			data = f.variables['tas'][0:50]
-
-			result += np.mean(data, axis=0)
-		result /= dic[type]
-		return result
-
-	elif model == 'MIRO':
-		result = np.zeros((36, 72))
-		dic = {'hist-GHG': 3, 'hist-aer': 3, 'hist-nat': 3, 'historical': 50}
-		for i in range(dic[type]):
-			fn = data_dir + model + '_' + type + '_' + str(i + 1) + '.nc'
-			f = nc4.Dataset(fn, 'r')
-
-			data = f.variables['tas'][0:50]
-
-			result += np.mean(data, axis=0)
-		result /= dic[type]
-		return result
-
-	elif model == 'ESM2':
-		result = np.zeros((36, 72))
-		dic = {'hist-GHG': 5, 'hist-aer': 5, 'hist-nat': 5, 'historical': 7}
-		for i in range(dic[type]):
-			fn = data_dir + model + '_' + type + '_' + str(i + 1) + '.nc'
-			f = nc4.Dataset(fn, 'r')
-
-			data = f.variables['tas'][0:50]
-
-			result += np.mean(data, axis=0)
-		result /= dic[type]
-		return result
-
-	elif model == 'NorESM2':
-		result = np.zeros((36, 72))
-		dic = {'hist-GHG': 3, 'hist-aer': 3, 'hist-nat': 3, 'historical': 3}
-		for i in range(dic[type]):
-			fn = data_dir + model + '_' + type + '_' + str(i + 1) + '.nc'
-			f = nc4.Dataset(fn, 'r')
-
-			data = f.variables['tas'][0:50]
-
-			result += np.mean(data, axis=0)
-		result /= dic[type]
-		return result
-
-	elif model == 'CNRM':
-		result = np.zeros((36, 72))
-		dic = {'hist-GHG': 9, 'hist-aer': 10, 'hist-nat': 10, 'historical': 30}
-		for i in range(dic[type]):
-			fn = data_dir + model + '_' + type + '_' + str(i + 1) + '.nc'
-			f = nc4.Dataset(fn, 'r')
-
-			data = f.variables['tas'][0:50]
-
-			result += np.mean(data, axis=0)
-		result /= dic[type]
-		return result
+	for i in range(idx):
+		fn = data_dir + model + '_' + data_type + '_' + str(i + 1) + '.nc'
+		f = nc4.Dataset(fn, 'r')
+		data = f.variables['tas'][0:50]
+		result += np.mean(data, axis=0)
+	result /= divisor
+	return result
 
 
 # fonction renvoyant 1 simulation

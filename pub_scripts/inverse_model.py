@@ -24,7 +24,7 @@ def model_inverse(entry, cible, model, alpha: float = 0.005):
 		optimizer.step()
 		optimizer.zero_grad()
 
-		if (criterion(current, cible) < alpha):
+		if criterion(current, cible) < alpha:
 			print(i)
 
 			break

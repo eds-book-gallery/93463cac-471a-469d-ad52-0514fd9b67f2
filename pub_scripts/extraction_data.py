@@ -145,14 +145,11 @@ def get_pre_ind(data_type: str, model: str = 'IPSL', phys: int = 1):
 # fonction renvoyant 1 simulation
 def get_simu(data_type: str, simu, model: str = 'IPSL', cluster: int = -1, filtering: bool = False):
 	if model == 'GISS':
-		phys = 1
 		i = simu
-		if data_type == 'hist-aer':
-			if i in {6, 7, 8, 9, 10}:
-				phys = 2
-		elif data_type == 'historical':
-			if i > 10:
-				phys = 2
+		if (data_type == 'hist-aer' and i in {6, 7, 8, 9, 10}) or (data_type == 'historical' and i > 10):
+			phys = 2
+		else:
+			phys = 1
 		pre_ind = get_pre_ind(data_type, model=model, phys=phys)
 	else:
 		pre_ind = get_pre_ind(data_type, model=model)

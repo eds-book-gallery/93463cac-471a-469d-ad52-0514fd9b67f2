@@ -1,9 +1,12 @@
 from __future__ import annotations
 
-import bottleneck as bn
+import os
+
+# import bottleneck as bn
 import matplotlib.image as mpimg
 import matplotlib.pyplot as plt
 import netCDF4 as nc4  # TODO: look into the new alternative to netCDF4 if possible
+# TODO: look into h5netcdf to aovid the netCDF-C libraries for compatibility
 import numpy as np
 import seaborn as sns
 import torch
@@ -14,7 +17,7 @@ from scipy.io import loadmat
 
 b, a = signal.butter(20, 1 / 5, btype='lowpass')
 
-data_dir = 'data_pre_ind_2/'
+data_dir = 'data_pre_ind_2'
 
 cluster_map = np.zeros((36, 72), dtype=int)
 cluster_map[-9:, :] = 1
@@ -44,8 +47,7 @@ def get_mean(data: np.ndarray, cluster: int = -1):
 # fonction extrayant les observations
 # function to get the observations
 def get_obs(cluster=-1):
-	fn = data_dir + 'obs.nc'
-
+	fn = os.path.join(data_dir, 'obs.nc')
 	f = nc4.Dataset(fn, 'r')
 	data = f.variables['temperature_anomaly'][:]
 	return get_mean(data, cluster=cluster)
@@ -96,7 +98,7 @@ def get_pre_ind(data_type: str, model: str = 'IPSL', phys: int = 1):
 		divisor = model_dic[model][data_type]
 
 	for i in range(idx):
-		fn = data_dir + model + '_' + data_type + '_' + str(i + 1) + '.nc'
+		fn = os.path.join(data_dir, f"{model}_{data_type}_{i + 1}.nc")
 		f = nc4.Dataset(fn, 'r')
 		data = f.variables['tas'][0:50]
 		result += np.mean(data, axis=0)
@@ -119,7 +121,7 @@ def get_simu(data_type: str, simu, model: str = 'IPSL', cluster: int = -1, filte
 	else:
 		pre_ind = get_pre_ind(data_type, model=model)
 
-	fn = data_dir + model + '_' + data_type + '_' + str(simu) + '.nc'
+	fn = os.path.join(data_dir, f"{model}_{data_type}_{simu}.nc")
 	f = nc4.Dataset(fn, 'r')
 	data = f.variables['tas'][50:]
 
@@ -370,13 +372,13 @@ def get_map_compar(year1, year2, model='CNRM'):
 		# print(type)
 		if type == 'hist-GHG':
 			for i in range(2):
-				fn = data_dir + model + '_' + type + '_' + str(i + 1) + '.nc'
+				fn = os.path.join(data_dir, f"{model}_{type}_{i + 1}.nc")
 				f = nc4.Dataset(fn, 'r')
 				data = f.variables['tas'][year1 - 1850:year2 - 1850]
 
 				result += np.mean(data, axis=0)
 			for i in range(3, 10, 1):
-				fn = data_dir + model + '_' + type + '_' + str(i + 1) + '.nc'
+				fn = os.path.join(data_dir, f"{model}_{type}_{i + 1}.nc")
 				f = nc4.Dataset(fn, 'r')
 				data = f.variables['tas'][year1 - 1850:year2 - 1850]
 
@@ -384,7 +386,7 @@ def get_map_compar(year1, year2, model='CNRM'):
 		else:
 
 			for i in range(dic[type]):
-				fn = data_dir + model + '_' + type + '_' + str(i + 1) + '.nc'
+				fn = os.path.join(data_dir, f"{model}_{type}_{i + 1}.nc")
 				f = nc4.Dataset(fn, 'r')
 				data = f.variables['tas'][year1 - 1850:year2 - 1850]
 

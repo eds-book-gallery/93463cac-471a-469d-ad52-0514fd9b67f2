@@ -60,10 +60,8 @@ class MonDataset(Dataset):
 
 		if self.train_test == 'train':
 			# on choisit au hasard un modèle qui n'est pas all
-			while True:  # TODO: fix this !!!!!!!
-				model = random.randint(0, len(self.ghg) - 1)
-				if model != self.all:
-					break
+			available_models = [i for i in range(len(self.ghg)) if i != self.all]
+			model = random.choice(available_models)
 			# On choisit au hasard une simulation de chaque type du modèle
 
 		elif self.train_test == 'test':

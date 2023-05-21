@@ -41,23 +41,19 @@ def mkdir_p(path: str) -> None:
 # créer la classe de data set de notre réseau de neurones
 # all représente le modèle climatique étudié, si all vaut -1 on étudie tout les modèles en même temps
 class MonDataset(Dataset):
-	def __init__(self, ghg, aer, nat, historical, all: int = 0, train_test: str = 'train'):
-
+	def __init__(self, ghg, aer, nat, historical, model_nbr: int = 0, train_test: str = 'train'):
 		self.ghg = ghg
-
 		self.aer = aer
 		self.nat = nat
 		self.historical = historical
 		self.train_test = train_test
-
-		self.all = all
+		self.all = model_nbr
 
 	def __len__(self) -> int:
 		# On fixe arbitrairement une itération à l'étude de 50000 cas
 		return 50000
 
 	def __getitem__(self, item):
-
 		if self.train_test == 'train':
 			# on choisit au hasard un modèle qui n'est pas all
 			available_models = [i for i in range(len(self.ghg)) if i != self.all]

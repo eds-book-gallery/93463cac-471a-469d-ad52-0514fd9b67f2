@@ -408,7 +408,7 @@ def get_data_set(model='IPSL', cluster=-1, normalis=False, filtrage=False):
 			max_hist = torch.max(torch.mean(historical_curr, dim=0))
 			liste_max.append(max_hist)
 
-			if (normalis):
+			if normalis:
 				aer_curr = aer_curr / max_hist
 				ghg_curr = ghg_curr / max_hist
 				nat_curr = nat_curr / max_hist
@@ -428,23 +428,21 @@ def get_data_set(model='IPSL', cluster=-1, normalis=False, filtrage=False):
 # renvoie les simulations moyenne de modèle climtique
 # to get the mmean simulations of a model
 def get_mean_data_set(model='IPSL', normalis=False, cluster=-1, filtrage=False):
-	if (model != 'ALL'):
+	if model != 'ALL':
 
 		aer = np.mean(get_data_forcage('hist-aer', model=model, cluster=cluster, filtrage=filtrage), axis=0)
 		ghg = np.mean(get_data_forcage('hist-GHG', model=model, cluster=cluster, filtrage=filtrage), axis=0)
 		nat = np.mean(get_data_forcage('hist-nat', model=model, cluster=cluster, filtrage=filtrage), axis=0)
 		historical = np.mean(get_data_forcage('historical', model=model, cluster=cluster, filtrage=filtrage), axis=0)
 
-		if (normalis):
+		if normalis:
 			max_hist = np.max(historical)
 			aer = aer / max_hist
 			ghg = ghg / max_hist
 			nat = nat / max_hist
 			historical = historical / max_hist
 
-
-
-	elif (model == 'ALL'):
+	elif model == 'ALL':
 
 		# liste_models = ['CanESM5', 'CNRM', 'GISS', 'IPSL', 'ACCESS', 'BCC', 'FGOALS', 'HadGEM3', 'MIRO', 'ESM2',
 		#                 'NorESM2','CESM2']
@@ -490,7 +488,7 @@ def get_mean_data_set(model='IPSL', normalis=False, cluster=-1, filtrage=False):
 # fonction renvoyant l"'écart moyen d'un modèle climatique
 # get the std of a model
 def get_std_data_set(model='IPSL', cluster=-1, normalis=False, filtrage=False):
-	if (model != 'ALL'):
+	if model != 'ALL':
 
 		aer = get_data_forcage('hist-aer', model=model, cluster=cluster, filtrage=filtrage)[:, 0:115]
 		ghg = get_data_forcage('hist-GHG', model=model, cluster=cluster, filtrage=filtrage)[:, 0:115]
@@ -508,9 +506,7 @@ def get_std_data_set(model='IPSL', cluster=-1, normalis=False, filtrage=False):
 		nat = np.std(nat, axis=0)
 		historical = np.std(historical, axis=0)
 
-
-
-	elif (model == 'ALL'):
+	elif model == 'ALL':
 
 		# liste_models = ['CanESM5', 'CNRM', 'GISS', 'IPSL', 'ACCESS', 'BCC', 'FGOALS', 'HadGEM3', 'MIRO', 'ESM2',
 		#                 'NorESM2','CESM2']
@@ -622,9 +618,10 @@ def plot_mean_simus():
 		plt.title('Simulation ' + str(nom_for[i]) + ' moyenne pour les modèles climatiques')
 		plt.legend(loc='best')
 		plt.tight_layout()
-		plt.xticks([0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120],
-		           ['1900', '1910', '1920', '1930', '1940', '1950', '1960', '1970', '1980', '1990', '2000', '2010',
-		            '2020'])
+		plt.xticks(
+			[0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120],
+			['1900', '1910', '1920', '1930', '1940', '1950', '1960', '1970', '1980', '1990', '2000', '2010', '2020']
+		)
 		plt.savefig('figures/simus_moyenne_' + str(nom_for[i]))
 		plt.show()
 
@@ -636,8 +633,10 @@ def plot_mean_simus():
 	plt.title('Simulation hist moyenne pour les modèles climatiques')
 	plt.legend(loc='best')
 	plt.tight_layout()
-	plt.xticks([0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120],
-	           ['1900', '1910', '1920', '1930', '1940', '1950', '1960', '1970', '1980', '1990', '2000', '2010', '2020'])
+	plt.xticks(
+		[0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120],
+		['1900', '1910', '1920', '1930', '1940', '1950', '1960', '1970', '1980', '1990', '2000', '2010', '2020']
+	)
 	plt.savefig('figures/simus_moyenne_hist')
 	plt.show()
 

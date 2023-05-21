@@ -201,7 +201,7 @@ def train_model(data, data_test, lr=0.001, nb_epoch=100, taille=3, regularisatio
 
 
 def train_and_plot(
-		nom_dossier_root: str,
+		root: str,
 		clus: int = -1,
 		all: int = 0,
 		normalis: bool = False,
@@ -227,7 +227,7 @@ def train_and_plot(
 	max_obs = torch.max(obs)
 	obs = obs / max_obs
 
-	nom_dossier = nom_dossier_root + 'cluster_' + str(clus) + '/' # TODO: fix the path
+	file_path = os.path.join(root, f'cluster_{clus}')
 
 	ghg, aer, nat, historical, liste_max = extr.get_data_set(
 		cluster=clus,
@@ -249,10 +249,10 @@ def train_and_plot(
 		regularisation=regularisation
 	)
 
-	if (nom_dossier != ''): # TODO: paths
-		mkdir_p('./figures/' + nom_dossier)
+	if file_path:
+		mkdir_p(os.path.join(".", "figures", file_path))
 
-	torch.save(model, './figures/' + nom_dossier + 'model.pt')
+	torch.save(model, os.path.join(".", "figures", file_path, "model.pt"))
 
 	# inversion
 
@@ -293,7 +293,7 @@ def train_and_plot(
 					liste_res_cible.append(current.clone().detach().numpy())
 		liste_res_for = np.array(liste_res_for)[:, 0]
 		liste_res_cible = np.array(liste_res_cible)[:, 0]
-		with open('./figures/' + nom_dossier + 'inver.npy', 'wb') as f1:
+		with open(os.path.join('.', 'figures', file_path, 'inver.npy'), 'wb') as f1:
 			np.save(f1, liste_res_for)
 
 	elif all != -1:
@@ -344,7 +344,7 @@ def train_and_plot(
 			# liste_res_for = np.delete(liste_res_for,all,axis=0)
 			Result.append(liste_res_for)
 		Result = np.array(Result)
-		with open('./figures/' + nom_dossier + 'inver.npy', 'wb') as f1:
+		with open(os.path.join('.', 'figures', file_path, 'inver.npy'), 'wb') as f1:
 			np.save(f1, Result)
 
 	return Loss_test_tab
@@ -388,20 +388,30 @@ class Linear_mod(nn.Module):
 # taille du batch pour l'apprentissage des réseaux de neurones
 BATCH_SIZE = 100
 
-liste_models = ['CanESM5', 'CNRM', 'IPSL', 'ACCESS', 'BCC', 'FGOALS', 'HadGEM3', 'MIRO', 'ESM2', 'NorESM2', 'CESM2',
-                'GISS']
-model_true_name = ['CanESM5', 'CNRM-CM6-1', 'IPSL-CM6A-LR', 'ACCESS-ESM1-5',
-                   'BCC-CSM2-MR', 'FGOALS-g3', 'HadGEM3', 'MIROC6', 'ESM2', 'NorESM2-LM', 'CESM2', 'GISS-E2-1-G', 'ALL']
-Loss_test_complete = []
+LIST_MODELS = [
+	'CanESM5', 'CNRM', 'IPSL', 'ACCESS', 'BCC', 'FGOALS',
+	'HadGEM3', 'MIRO', 'ESM2', 'NorESM2', 'CESM2', 'GISS'
+]
+MODEL_TRUE_NAME = [
+	'CanESM5', 'CNRM-CM6-1', 'IPSL-CM6A-LR', 'ACCESS-ESM1-5', 'BCC-CSM2-MR', 'FGOALS-g3',
+	'HadGEM3', 'MIROC6', 'ESM2', 'NorESM2-LM', 'CESM2', 'GISS-E2-1-G', 'ALL'
+]
+loss_test_complete = []
 taille = [10]
 regul = [-1]
 modules_tot = [-1]
 for reg in regul:
 	for tai in taille:
-
 		for modu in range(11, 12):
-			nom_dossier_root = '/Result/'
-
-			loss_cur = train_and_plot(nom_dossier_root, all=modu, clus=-1, normalis=True, denormalis=True, taille=tai,
-			                          filtrage=False, regularisation=reg)
-			Loss_test_complete.append(loss_cur)
+			root_folder = 'Result'
+			loss_cur = train_and_plot(
+				root_folder,
+				all=modu,
+				clus=-1,
+				normalis=True,
+				denormalis=True,
+				taille=tai,
+				filtrage=False,
+				regularisation=reg
+			)
+			loss_test_complete.append(loss_cur)

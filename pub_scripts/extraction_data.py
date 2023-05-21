@@ -30,13 +30,37 @@ data = f.variables['temperature_anomaly'][:]
 LAT = f.variables['latitude'][:]
 
 
-# fonction faisant la moyenne spatiale d'une simulation
-# function for the spatial norm of a simulation
 def get_mean(data: np.ndarray, cluster: int = -1):
+	"""
+	Calculate the mean value of the given data array.
+
+	Parameters
+	----------
+	data : numpy.ndarray
+		Input data array of shape (N, 36, 72).
+	cluster : int, optional
+		Cluster ID for filtering specific cluster data. Default is -1.
+
+	Returns
+	-------
+	numpy.ndarray
+		Mean value calculated from the input data array.
+
+	Notes
+	-----
+	The mean value is calculated by considering the elements of the data array
+	that meet the cluster filtering criteria. If `cluster` is -1, all elements
+	are considered.
+
+	The calculation is performed by summing the product of data values and the
+	cosine of latitude values, and dividing by the sum of cosine of latitude
+	values.
+	"""
+
 	t = np.zeros((data.shape[0]))
 	div = 0
 	for j in range(36):
-		for k in range(72):
+		for k in range(72):     # TODO: vectorize and check the range with the data array
 			if cluster == -1 or cluster_map[j, k] == cluster:
 				t += data[:, j, k] * np.cos(np.radians(LAT[j]))
 				div += np.cos(np.radians(LAT[j]))
@@ -44,9 +68,20 @@ def get_mean(data: np.ndarray, cluster: int = -1):
 	return t
 
 
-# fonction extrayant les observations
-# function to get the observations
-def get_obs(cluster=-1):
+def get_obs(cluster: int = -1):
+	"""
+	Calculate the mean temperature anomaly from observed data.
+
+	Parameters
+	----------
+	cluster : int, optional
+		Cluster ID for filtering specific cluster data. Default is -1.
+
+	Returns
+	-------
+	numpy.ndarray
+		Mean temperature anomaly calculated from the observed data.
+	"""
 	fn = os.path.join(data_dir, 'obs.nc')
 	f = nc4.Dataset(fn, 'r')
 	data = f.variables['temperature_anomaly'][:]

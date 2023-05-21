@@ -110,7 +110,7 @@ test = get_obs()
 
 # fonction extrayant la valeur pré-industrielle moyenne d'un modèle climatique
 # function to get the pre-industrial mean value of a climatic model
-def get_pre_ind(data_type: str, model: str = 'IPSL', phys: int = 1):
+def get_pre_ind(data_type: str, model: str = 'IPSL', phys: int = 1) -> np.ndarray:
 	result = np.zeros((36, 72))
 
 	if model == 'GISS':
@@ -144,7 +144,7 @@ def get_pre_ind(data_type: str, model: str = 'IPSL', phys: int = 1):
 
 
 # fonction renvoyant 1 simulation
-def get_simu(data_type: str, simu, model: str = 'IPSL', cluster: int = -1, filtering: bool = False):
+def get_simu(data_type: str, simu, model: str = 'IPSL', cluster: int = -1, filtering: bool = False) -> np.ndarray:
 	if model == 'GISS':
 		i = simu
 		if (data_type == 'hist-aer' and i in {6, 7, 8, 9, 10}) or (data_type == 'historical' and i > 10):
@@ -169,8 +169,9 @@ def get_simu(data_type: str, simu, model: str = 'IPSL', cluster: int = -1, filte
 
 # fonction renvoyant les simulations d'un certain type d'un modèle climatique
 # function to get the simulations from a specific model
-def get_data_forcage(data_type: str, model: str = 'IPSL', cluster: int = -1, filtrage: bool = False):
+def get_data_forcage(data_type: str, model: str = 'IPSL', cluster: int = -1, filtrage: bool = False) -> np.ndarray:
 	result = np.zeros((MODEL_DIC[model][data_type], 115))
+
 	for i in range(MODEL_DIC[model][data_type]):
 		result[i] = get_simu(data_type, i + 1, model, cluster, filtering=filtrage)[0:115]
 

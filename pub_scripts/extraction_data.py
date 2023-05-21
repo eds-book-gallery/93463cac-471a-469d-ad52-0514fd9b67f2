@@ -273,26 +273,13 @@ def get_mean_data_set(model: str = 'IPSL', normalis: bool = False, cluster: int 
 		historical = []
 		for model_curr in LIST_MODELS:
 
-			aer_ipsl = np.mean(
-				get_data_forcage('hist-aer', model=model_curr, cluster=cluster, filtrage=filtrage),
-				axis=0
-			)
-			ghg_ipsl = np.mean(
-				get_data_forcage('hist-GHG', model=model_curr, cluster=cluster, filtrage=filtrage),
-				axis=0
-			)
-			nat_ipsl = np.mean(
-				get_data_forcage('hist-nat', model=model_curr, cluster=cluster, filtrage=filtrage),
-				axis=0
-			)
-			historical_ipsl = np.mean(
-				get_data_forcage('historical', model=model_curr, cluster=cluster, filtrage=filtrage),
-				axis=0
-			)
+			aer_ipsl = np.mean(get_data_forcage('hist-aer', model=model_curr, cluster=cluster, filtrage=filtrage), axis=0)
+			ghg_ipsl = np.mean(get_data_forcage('hist-GHG', model=model_curr, cluster=cluster, filtrage=filtrage),	axis=0)
+			nat_ipsl = np.mean(get_data_forcage('hist-nat', model=model_curr, cluster=cluster, filtrage=filtrage), axis=0)
+			historical_ipsl = np.mean(get_data_forcage('historical', model=model_curr, cluster=cluster, filtrage=filtrage), axis=0)
 
 			if normalis:
 				max_hist = np.max(historical_ipsl)
-
 				aer_ipsl = aer_ipsl / max_hist
 				ghg_ipsl = ghg_ipsl / max_hist
 				nat_ipsl = nat_ipsl / max_hist

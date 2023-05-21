@@ -236,10 +236,10 @@ def train_and_plot(
 		filtrage=filtrage,
 	)
 
-	train_dataset = MonDataset(ghg, aer, nat, historical, data_type='train', all=all)
+	train_dataset = MonDataset(ghg, aer, nat, historical, train_test='train', all=all)
 	data = DataLoader(train_dataset, shuffle=True, batch_size=BATCH_SIZE)
 
-	test_dataset = MonDataset(ghg, aer, nat, historical, data_type='test', all=all)
+	test_dataset = MonDataset(ghg, aer, nat, historical, train_test='test', all=all)
 	data_test = DataLoader(test_dataset, shuffle=True, batch_size=BATCH_SIZE)
 
 	model, Loss_tab, Loss_test_tab, model_linear, Loss_tab_lin, Loss_test_tab_lin = train_model(

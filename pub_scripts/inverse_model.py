@@ -6,7 +6,7 @@ from torch.autograd import Variable
 
 
 # fonction réalisant l'inversion variationelle
-def model_inverse(entry: torch.Tensor, target: torch.Tensor, model, alpha: float = 0.005) -> tuple:
+def model_inverse(entry: torch.Tensor, target: torch.Tensor, model: torch.nn.Module, alpha: float = 0.005) -> tuple:
 	"""
 	Performs model inverse optimization to modify the given input array to approximate the target array.
 
@@ -16,7 +16,7 @@ def model_inverse(entry: torch.Tensor, target: torch.Tensor, model, alpha: float
 		Input array to be modified.
 	target : torch.Tensor
 		Target array to be approximated.
-	model : object
+	model : torch.nn.Module
 		The model used for prediction.
 	alpha : float, optional
 		Threshold value for the loss, indicating the desired approximation level. Default is 0.005.

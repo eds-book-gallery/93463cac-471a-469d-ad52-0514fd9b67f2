@@ -313,47 +313,24 @@ def get_simu(data_type: str, simu, model: str = 'IPSL', cluster: int = -1, filte
 # fonction renvoyant les simulations d'un certain type d'un modèle climatique
 # function to get the simulations from a specific model
 def get_data_forcage(data_type: str, model: str = 'IPSL', cluster: int = -1, filtrage: bool = False):
-	dic = {}
+	model_dic = {
+		'IPSL': {'hist-GHG': 10, 'hist-aer': 10, 'hist-nat': 10, 'historical': 32},
+		'CNRM': {'hist-GHG': 9, 'hist-aer': 10, 'hist-nat': 10, 'historical': 30},
+		'CESM2': {'hist-GHG': 3, 'hist-aer': 2, 'hist-nat': 3, 'historical': 11},
+		'ACCESS': {'hist-GHG': 3, 'hist-aer': 3, 'hist-nat': 3, 'historical': 30},
+		'BCC': {'hist-GHG': 3, 'hist-aer': 3, 'hist-nat': 3, 'historical': 3},
+		'CanESM5': {'hist-GHG': 50, 'hist-aer': 30, 'hist-nat': 50, 'historical': 65},
+		'FGOALS': {'hist-GHG': 3, 'hist-aer': 3, 'hist-nat': 3, 'historical': 6},
+		'GISS': {'hist-GHG': 10, 'hist-aer': 12, 'hist-nat': 20, 'historical': 19},
+		'HadGEM3': {'hist-GHG': 4, 'hist-aer': 4, 'hist-nat': 4, 'historical': 5},
+		'MIRO': {'hist-GHG': 3, 'hist-aer': 3, 'hist-nat': 3, 'historical': 50},
+		'ESM2': {'hist-GHG': 5, 'hist-aer': 5, 'hist-nat': 5, 'historical': 5},
+		'NorESM2': {'hist-GHG': 3, 'hist-aer': 3, 'hist-nat': 3, 'historical': 3}
+	}
 
-	if model == 'IPSL':
-		dic = {'hist-GHG': 10, 'hist-aer': 10, 'hist-nat': 10, 'historical': 32}
-
-	elif model == 'CNRM':
-		dic = {'hist-GHG': 9, 'hist-aer': 10, 'hist-nat': 10, 'historical': 30}
-
-	elif model == 'CESM2':
-		dic = {'hist-GHG': 3, 'hist-aer': 2, 'hist-nat': 3, 'historical': 11}
-
-	elif model == 'ACCESS':
-		dic = {'hist-GHG': 3, 'hist-aer': 3, 'hist-nat': 3, 'historical': 30}
-
-	elif model == 'BCC':
-		dic = {'hist-GHG': 3, 'hist-aer': 3, 'hist-nat': 3, 'historical': 3}
-
-	elif model == 'CanESM5':
-		dic = {'hist-GHG': 50, 'hist-aer': 30, 'hist-nat': 50, 'historical': 65}
-
-	elif model == 'FGOALS':
-		dic = {'hist-GHG': 3, 'hist-aer': 3, 'hist-nat': 3, 'historical': 6}
-
-	elif model == 'GISS':
-		dic = {'hist-GHG': 10, 'hist-aer': 12, 'hist-nat': 20, 'historical': 19}
-
-	elif model == 'HadGEM3':
-		dic = {'hist-GHG': 4, 'hist-aer': 4, 'hist-nat': 4, 'historical': 5}
-
-	elif model == 'MIRO':
-		dic = {'hist-GHG': 3, 'hist-aer': 3, 'hist-nat': 3, 'historical': 50}
-
-	elif model == 'ESM2':
-		dic = {'hist-GHG': 5, 'hist-aer': 5, 'hist-nat': 5, 'historical': 5}
-
-	elif model == 'NorESM2':
-		dic = {'hist-GHG': 3, 'hist-aer': 3, 'hist-nat': 3, 'historical': 3}
-
-	result = np.zeros((dic[data_type], 115))
-	for i in range(dic[data_type]):
-		result[i] = get_simu(type, i + 1, model, cluster, filtering=filtrage)[0:115]
+	result = np.zeros((model_dic[model][data_type], 115))
+	for i in range(model_dic[model][data_type]):
+		result[i] = get_simu(data_type, i + 1, model, cluster, filtering=filtrage)[0:115]
 
 	return result
 

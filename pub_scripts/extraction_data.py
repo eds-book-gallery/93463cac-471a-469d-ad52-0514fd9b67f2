@@ -239,7 +239,7 @@ def get_pre_ind(type, model='IPSL', phys=1):
 		result /= dic[type]
 		return result
 
-	elif (model == 'ESM2'):
+	elif model == 'ESM2':
 		result = np.zeros((36, 72))
 		dic = {'hist-GHG': 5, 'hist-aer': 5, 'hist-nat': 5, 'historical': 7}
 		for i in range(dic[type]):

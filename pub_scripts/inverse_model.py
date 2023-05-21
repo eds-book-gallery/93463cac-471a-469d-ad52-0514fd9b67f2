@@ -4,19 +4,19 @@ from torch.autograd import Variable
 
 
 # fonction réalisant l'inversion variationelle
-def model_inverse(entre, cible, model, alpha=0.005):
+def model_inverse(entry, cible, model, alpha: float = 0.005):
 	criterion = nn.MSELoss()
 
-	X = Variable(entre.clone().detach(), requires_grad=True)
+	X = Variable(entry.clone().detach(), requires_grad=True)
 	optimizer = torch.optim.Adam([X], lr=0.0001)
 
 	for i in range(100000):
 		current = model(X)
-		loss = criterion(current.float(), cible.float()) + 0.01 * criterion(X.float(), entre.float())
+		loss = criterion(current.float(), cible.float()) + 0.01 * criterion(X.float(), entry.float())
 
 		if i % 1000 == 0:
 			print(
-				f"Iteration {i}:   loss exit {criterion(current, cible)} loss entry {criterion(entre, X)}"
+				f"Iteration {i}:\n\tloss exit {criterion(current, cible)}\n\tloss entry {criterion(entry, X)}"
 			)
 
 		loss.backward()

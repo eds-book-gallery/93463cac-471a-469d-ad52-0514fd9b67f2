@@ -57,6 +57,7 @@ def get_mean(data: np.ndarray, cluster: int = -1):
 	values.
 	"""
 
+	# TODO: check the output type
 	t = np.zeros((data.shape[0]))
 	div = 0
 	for j in range(36):
@@ -195,7 +196,7 @@ def get_data_forcage(data_type: str, model: str = 'IPSL', cluster: int = -1, fil
 
 # fonction renvoyant le data-set entier traité
 # function to get the full dataset and processes it
-def get_data_set(model='IPSL', cluster=-1, normalis=False, filtrage=False):
+def get_data_set(model: str = 'IPSL', cluster: int = -1, normalis: bool = False, filtrage: bool = False):
 	list_max = []
 
 	if model != 'ALL':
@@ -255,7 +256,7 @@ def get_data_set(model='IPSL', cluster=-1, normalis=False, filtrage=False):
 
 # renvoie les simulations moyenne de modèle climtique
 # to get the mmean simulations of a model
-def get_mean_data_set(model='IPSL', normalis=False, cluster=-1, filtrage=False):
+def get_mean_data_set(model: str = 'IPSL', normalis: bool = False, cluster: int = -1, filtrage: bool = False):
 
 	if model != 'ALL':
 		aer = np.mean(get_data_forcage('hist-aer', model=model, cluster=cluster, filtrage=filtrage), axis=0)
@@ -324,7 +325,7 @@ def get_mean_data_set(model='IPSL', normalis=False, cluster=-1, filtrage=False):
 
 # fonction renvoyant l"'écart moyen d'un modèle climatique
 # get the std of a model
-def get_std_data_set(model='IPSL', cluster=-1, normalis=False, filtrage=False):
+def get_std_data_set(model: str = 'IPSL', cluster: int = -1, normalis: bool = False, filtrage: bool = False):
 	if model != 'ALL':
 
 		aer = get_data_forcage('hist-aer', model=model, cluster=cluster, filtrage=filtrage)[:, 0:115]
@@ -392,7 +393,7 @@ def get_std_data_set(model='IPSL', cluster=-1, normalis=False, filtrage=False):
 	return torch.tensor(result).unsqueeze(0), historical
 
 
-def get_map_compar(year1, year2, model='CNRM'):
+def get_map_compar(year1: int, year2: int, model: str = 'CNRM') -> None:
 	results = []
 	types = ['hist-GHG', 'hist-aer', 'hist-nat', 'historical']
 	for type in types:
@@ -457,12 +458,12 @@ def get_map_compar(year1, year2, model='CNRM'):
 	plt.show()
 
 
-def plot_mean_simus():
-	liste_models = ['CanESM5', 'CNRM', 'GISS', 'IPSL']
+def plot_mean_simus() -> None:
+	LIST_MODELS = ['CanESM5', 'CNRM', 'GISS', 'IPSL']
 	nom_for = ['GHG', 'AER', 'Naturel']
 
 	for i in range(3):
-		for mod in liste_models:
+		for mod in LIST_MODELS:
 			data, hist = get_mean_data_set(model=mod)
 
 			# print(hist.shape)

@@ -196,7 +196,7 @@ def get_data_forcage(data_type: str, model: str = 'IPSL', cluster: int = -1, fil
 # fonction renvoyant le data-set entier traité
 # function to get the full dataset and processes it
 def get_data_set(model='IPSL', cluster=-1, normalis=False, filtrage=False):
-	liste_max = []
+	list_max = []
 
 	if model != 'ALL':
 		aer = get_data_forcage('hist-aer', model=model, cluster=cluster, filtrage=filtrage)[:, 0:115]
@@ -204,7 +204,7 @@ def get_data_set(model='IPSL', cluster=-1, normalis=False, filtrage=False):
 		nat = get_data_forcage('hist-nat', model=model, cluster=cluster, filtrage=filtrage)[:, 0:115]
 		historical = get_data_forcage('historical', model=model, cluster=cluster, filtrage=filtrage)[:, 0:115]
 		max_hist = np.max(np.mean(historical, axis=0))
-		liste_max.append(max_hist)
+		list_max.append(max_hist)
 		if (normalis):
 			aer = aer / max_hist
 			ghg = ghg / max_hist
@@ -214,7 +214,7 @@ def get_data_set(model='IPSL', cluster=-1, normalis=False, filtrage=False):
 	elif model == 'ALL':
 		# liste_models = ['CanESM5', 'CNRM', 'GISS', 'IPSL', 'ACCESS', 'BCC', 'FGOALS', 'HadGEM3', 'MIRO', 'ESM2',
 		#                'NorESM2','CESM2']
-		liste_models = [
+		LIST_MODELS = [
 			'CanESM5', 'CNRM', 'IPSL', 'ACCESS', 'BCC', 'FGOALS',
 			'HadGEM3', 'MIRO', 'ESM2', 'NorESM2', 'CESM2', 'GISS'
 		]
@@ -223,7 +223,7 @@ def get_data_set(model='IPSL', cluster=-1, normalis=False, filtrage=False):
 		nat = []
 		historical = []
 
-		for model_curr in liste_models:
+		for model_curr in LIST_MODELS:
 			print(model_curr)
 			aer_curr = torch.tensor(
 				get_data_forcage('hist-aer', model=model_curr, cluster=cluster, filtrage=filtrage)[:, 0:115])
@@ -234,7 +234,7 @@ def get_data_set(model='IPSL', cluster=-1, normalis=False, filtrage=False):
 			historical_curr = torch.tensor(
 				get_data_forcage('historical', model=model_curr, cluster=cluster, filtrage=filtrage)[:, 0:115])
 			max_hist = torch.max(torch.mean(historical_curr, dim=0))
-			liste_max.append(max_hist)
+			list_max.append(max_hist)
 
 			if normalis:
 				aer_curr = aer_curr / max_hist
@@ -247,10 +247,10 @@ def get_data_set(model='IPSL', cluster=-1, normalis=False, filtrage=False):
 			nat.append(nat_curr)
 			historical.append(historical_curr)
 
-		return ghg, aer, nat, historical, np.array(liste_max)
+		return ghg, aer, nat, historical, np.array(list_max)
 
 	return torch.tensor(ghg).float(), torch.tensor(aer).float(), torch.tensor(nat).float(), torch.tensor(
-		historical).float(), np.array(liste_max)
+		historical).float(), np.array(list_max)
 
 
 # renvoie les simulations moyenne de modèle climtique
@@ -273,13 +273,13 @@ def get_mean_data_set(model='IPSL', normalis=False, cluster=-1, filtrage=False):
 	elif model == 'ALL':
 		# liste_models = ['CanESM5', 'CNRM', 'GISS', 'IPSL', 'ACCESS', 'BCC', 'FGOALS', 'HadGEM3', 'MIRO', 'ESM2',
 		#                 'NorESM2','CESM2']
-		liste_models = [
+		LIST_MODELS = [
 			'CanESM5', 'CNRM', 'IPSL', 'ACCESS', 'BCC', 'FGOALS',
 			'HadGEM3', 'MIRO', 'ESM2', 'NorESM2', 'CESM2', 'GISS'
 		]
 		result = []
 		historical = []
-		for model_curr in liste_models:
+		for model_curr in LIST_MODELS:
 
 			aer_ipsl = np.mean(
 				get_data_forcage('hist-aer', model=model_curr, cluster=cluster, filtrage=filtrage),
@@ -347,13 +347,13 @@ def get_std_data_set(model='IPSL', cluster=-1, normalis=False, filtrage=False):
 
 		# liste_models = ['CanESM5', 'CNRM', 'GISS', 'IPSL', 'ACCESS', 'BCC', 'FGOALS', 'HadGEM3', 'MIRO', 'ESM2',
 		#                 'NorESM2','CESM2']
-		liste_models = [
+		LIST_MODELS = [
 			'CanESM5', 'CNRM', 'IPSL', 'ACCESS', 'BCC', 'FGOALS',
 			'HadGEM3', 'MIRO', 'ESM2', 'NorESM2', 'CESM2', 'GISS'
 		]
 		result = []
 		historical = []
-		for model_curr in liste_models:
+		for model_curr in LIST_MODELS:
 
 			aer_ipsl = get_data_forcage('hist-aer', model=model_curr, cluster=cluster, filtrage=filtrage)[:, 0:115]
 			ghg_ipsl = get_data_forcage('hist-GHG', model=model_curr, cluster=cluster, filtrage=filtrage)[:, 0:115]

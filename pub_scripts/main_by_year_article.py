@@ -210,7 +210,7 @@ def train_and_plot(
 		filtrage: bool = False,
 		regularisation: int = -1
 ) -> np.ndarray:
-	liste_models = [
+	LIST_MODELS = [
 		'CanESM5', 'CNRM', 'IPSL', 'ACCESS', 'BCC', 'FGOALS', 'HadGEM3',
 		'MIRO', 'ESM2', 'NorESM2', 'CESM2', 'GISS', 'ALL'
 	]
@@ -229,7 +229,7 @@ def train_and_plot(
 
 	file_path = os.path.join(root, f'cluster_{clus}')
 
-	ghg, aer, nat, historical, liste_max = extr.get_data_set(
+	ghg, aer, nat, historical, list_max = extr.get_data_set(
 		cluster=clus,
 		model='ALL',
 		normalis=normalis,
@@ -261,10 +261,10 @@ def train_and_plot(
 
 	if all == -1:
 		inver_cible = obs
-		for i in range(len(liste_models) - 1):
+		for i in range(len(LIST_MODELS) - 1):
 
 			ghg, aer, nat, hist, liste = extr.get_data_set(
-				liste_models[i],
+				LIST_MODELS[i],
 				cluster=clus,
 				normalis=normalis,
 				filtrage=filtrage,
@@ -285,8 +285,8 @@ def train_and_plot(
 						liste_res_for.append(X.clone().detach().numpy() * max_obs.item())
 						liste_res_cible.append(current.clone().detach().numpy() * max_obs.item())
 					else:
-						liste_res_for.append(X.clone().detach().numpy() * liste_max[all])
-						liste_res_cible.append(current.clone().detach().numpy() * liste_max[all])
+						liste_res_for.append(X.clone().detach().numpy() * list_max[all])
+						liste_res_cible.append(current.clone().detach().numpy() * list_max[all])
 
 				else:
 					liste_res_for.append(X.clone().detach().numpy())
@@ -296,10 +296,10 @@ def train_and_plot(
 		with open(os.path.join('.', 'figures', file_path, 'inver.npy'), 'wb') as f1:
 			np.save(f1, liste_res_for)
 
-	elif all != -1:
+	else:
 		Result = []
 		ghg_ueless, aer_useless, nat_useless, hist_cible, liste_useless = extr.get_data_set(
-			liste_models[all],
+			LIST_MODELS[all],
 			cluster=clus,
 			normalis=normalis,
 			filtrage=filtrage
@@ -309,11 +309,11 @@ def train_and_plot(
 			liste_res_for = []
 			liste_res_cible = []
 			inver_cible = hist_cible[numb_inv]
-			for i in range(len(liste_models) - 1):
+			for i in range(len(LIST_MODELS) - 1):
 				if i != all:
 
 					ghg, aer, nat, hist, liste = extr.get_data_set(
-						liste_models[i],
+						LIST_MODELS[i],
 						cluster=clus,
 						normalis=normalis,
 						filtrage=filtrage
@@ -333,8 +333,8 @@ def train_and_plot(
 								liste_res_for.append(X.clone().detach().numpy() * max_obs.item())
 								liste_res_cible.append(current.clone().detach().numpy() * max_obs.item())
 							else:
-								liste_res_for.append(X.clone().detach().numpy() * liste_max[all])
-								liste_res_cible.append(current.clone().detach().numpy() * liste_max[all])
+								liste_res_for.append(X.clone().detach().numpy() * list_max[all])
+								liste_res_cible.append(current.clone().detach().numpy() * list_max[all])
 
 						else:
 							liste_res_for.append(X.clone().detach().numpy())
@@ -384,9 +384,9 @@ class Linear_mod(nn.Module):
 
 		return x[:, :, 0]
 
-
-# taille du batch pour l'apprentissage des réseaux de neurones
-BATCH_SIZE = 100
+def main():
+	# taille du batch pour l'apprentissage des réseaux de neurones
+	BATCH_SIZE = 100
 
 LIST_MODELS = [
 	'CanESM5', 'CNRM', 'IPSL', 'ACCESS', 'BCC', 'FGOALS',

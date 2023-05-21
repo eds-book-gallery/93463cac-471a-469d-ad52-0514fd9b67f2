@@ -208,14 +208,13 @@ def get_data_set(model: str = 'IPSL', cluster: int = -1, normalis: bool = False,
 		historical = get_data_forcage('historical', model=model, cluster=cluster, filtrage=filtrage)[:, 0:115]
 		max_hist = np.max(np.mean(historical, axis=0))
 		list_max.append(max_hist)
-		if (normalis):
+		if normalis:
 			aer = aer / max_hist
 			ghg = ghg / max_hist
 			nat = nat / max_hist
 			historical = historical / max_hist
 
-	elif model == 'ALL':
-
+	else:
 		aer = []
 		ghg = []
 		nat = []
@@ -268,7 +267,7 @@ def get_mean_data_set(model: str = 'IPSL', normalis: bool = False, cluster: int 
 			nat = nat / max_hist
 			historical = historical / max_hist
 
-	elif model == 'ALL':
+	else:
 		result = []
 		historical = []
 		for model_curr in LIST_MODELS:
@@ -322,7 +321,7 @@ def get_std_data_set(model: str = 'IPSL', cluster: int = -1, normalis: bool = Fa
 		nat = np.std(nat, axis=0)
 		historical = np.std(historical, axis=0)
 
-	elif model == 'ALL':
+	else:
 		result = []
 		historical = []
 		for model_curr in LIST_MODELS:
@@ -366,37 +365,34 @@ def get_std_data_set(model: str = 'IPSL', cluster: int = -1, normalis: bool = Fa
 
 def get_map_compar(year1: int, year2: int, model: str = 'CNRM') -> None:
 	results = []
-	types = ['hist-GHG', 'hist-aer', 'hist-nat', 'historical']
-	for type in types:
-		dic = {'hist-GHG': 9, 'hist-aer': 10, 'hist-nat': 10, 'historical': 30}
-		pre_ind = get_pre_ind(type)
-
+	DATA_TYPES = ['hist-GHG', 'hist-aer', 'hist-nat', 'historical']
+	dic = {'hist-GHG': 9, 'hist-aer': 10, 'hist-nat': 10, 'historical': 30}
+	for data_type in DATA_TYPES:
+		pre_ind = get_pre_ind(data_type)
 		result = np.zeros((36, 72))
 		# print(type)
-		if type == 'hist-GHG':
+		if data_type == 'hist-GHG':
 			for i in range(2):
-				fn = os.path.join(data_dir, f"{model}_{type}_{i + 1}.nc")
+				fn = os.path.join(data_dir, f"{model}_{data_type}_{i + 1}.nc")
 				f = nc4.Dataset(fn, 'r')
 				data = f.variables['tas'][year1 - 1850:year2 - 1850]
-
 				result += np.mean(data, axis=0)
-			for i in range(3, 10, 1):
-				fn = os.path.join(data_dir, f"{model}_{type}_{i + 1}.nc")
+			for i in range(3, 10):
+				fn = os.path.join(data_dir, f"{model}_{data_type}_{i + 1}.nc")
 				f = nc4.Dataset(fn, 'r')
 				data = f.variables['tas'][year1 - 1850:year2 - 1850]
-
 				result += np.mean(data, axis=0)
 		else:
-
-			for i in range(dic[type]):
-				fn = os.path.join(data_dir, f"{model}_{type}_{i + 1}.nc")
+			for i in range(dic[data_type]):
+				fn = os.path.join(data_dir, f"{model}_{data_type}_{i + 1}.nc")
 				f = nc4.Dataset(fn, 'r')
 				data = f.variables['tas'][year1 - 1850:year2 - 1850]
 
 				result += np.mean(data, axis=0)
-		result /= dic[type]
+		result /= dic[data_type]
 		# results.append(result - pre_ind)
 		results.append(result)
+
 	results = np.array(results)
 	somme = np.sum(results[0:3], axis=0)
 	diff = results[3] - somme

@@ -116,7 +116,7 @@ class MonDataset_inverse(Dataset):
 
 # fonction créant et entraiant les réseaux de neurones
 # on donne en entrée les données et les parmètres d'apprentissage et renvoie les modèles appris
-def train_model(data, data_test, lr=0.001, nb_epoch=100, taille=3, regularisation=-1):
+def train_model(data, data_test, lr: float = 0.001, nb_epoch: int = 100, taille: int = 3, regularisation: int = -1):
 	model = Net(taille, True)
 	model_linear = Linear_mod()
 

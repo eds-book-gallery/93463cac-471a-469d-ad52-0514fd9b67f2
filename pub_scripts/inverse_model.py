@@ -18,7 +18,6 @@ def model_inverse(entry, cible, model, alpha: float = 0.005):
 			print(
 				f"Iteration {i}:\n\tloss exit {criterion(current, cible)}\n\tloss entry {criterion(entry, X)}"
 			)
-
 		loss.backward()
 
 		optimizer.step()
@@ -26,7 +25,6 @@ def model_inverse(entry, cible, model, alpha: float = 0.005):
 
 		if criterion(current, cible) < alpha:
 			print(i)
-
 			break
 
 	return X, current

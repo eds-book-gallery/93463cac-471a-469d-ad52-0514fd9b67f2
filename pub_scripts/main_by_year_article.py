@@ -111,7 +111,7 @@ class MonDataset_inverse(Dataset):
 # on donne en entrée les données et les parmètres d'apprentissage et renvoie les modèles appris
 def train_model(data, data_test, lr: float = 0.001, nb_epoch: int = 100, taille: int = 3, regularisation: int = -1):
 	model = Net(taille, True)
-	model_linear = Linear_mod()
+	model_linear = LinearModel()
 
 	pytorch_total_params = math.fsum(p.numel() for p in model.parameters() if p.requires_grad)
 	print(pytorch_total_params)
@@ -366,10 +366,10 @@ class Net(nn.Module):
 
 
 # modèle linéaire simple de comparaison
-class Linear_mod(nn.Module):
+class LinearModel(nn.Module):
 
 	def __init__(self):
-		super(Linear_mod, self).__init__()
+		super(LinearModel, self).__init__()
 		self.linear = nn.Linear(3, 1, bias=False)
 
 	def forward(self, X):

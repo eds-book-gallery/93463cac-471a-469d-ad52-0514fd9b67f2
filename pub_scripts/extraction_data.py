@@ -368,34 +368,24 @@ def get_map_compar(year1: int, year2: int, model: str = 'CNRM') -> None:
 	DATA_TYPES = ['hist-GHG', 'hist-aer', 'hist-nat', 'historical']
 	dic = {'hist-GHG': 9, 'hist-aer': 10, 'hist-nat': 10, 'historical': 30}
 	for data_type in DATA_TYPES:
-		pre_ind = get_pre_ind(data_type)
 		result = np.zeros((36, 72))
-		# print(type)
 		if data_type == 'hist-GHG':
-			for i in range(2):
-				fn = os.path.join(data_dir, f"{model}_{data_type}_{i + 1}.nc")
-				f = nc4.Dataset(fn, 'r')
-				data = f.variables['tas'][year1 - 1850:year2 - 1850]
-				result += np.mean(data, axis=0)
-			for i in range(3, 10):
-				fn = os.path.join(data_dir, f"{model}_{data_type}_{i + 1}.nc")
-				f = nc4.Dataset(fn, 'r')
-				data = f.variables['tas'][year1 - 1850:year2 - 1850]
-				result += np.mean(data, axis=0)
+			idx = [i for i in range(10) if i != 2]
 		else:
-			for i in range(dic[data_type]):
-				fn = os.path.join(data_dir, f"{model}_{data_type}_{i + 1}.nc")
-				f = nc4.Dataset(fn, 'r')
-				data = f.variables['tas'][year1 - 1850:year2 - 1850]
+			idx = [i for i in range(dic[data_type])]
 
-				result += np.mean(data, axis=0)
+		for i in idx:
+			fn = os.path.join(data_dir, f"{model}_{data_type}_{i + 1}.nc")
+			f = nc4.Dataset(fn, 'r')
+			data = f.variables['tas'][year1 - 1850:year2 - 1850]
+			result += np.mean(data, axis=0)
+
 		result /= dic[data_type]
-		# results.append(result - pre_ind)
 		results.append(result)
 
 	results = np.array(results)
-	somme = np.sum(results[0:3], axis=0)
-	diff = results[3] - somme
+	res_sum = np.sum(results[0:3], axis=0)
+	diff = results[3] - res_sum
 
 	map_img = mpimg.imread('carte_terre.png')
 	plt.figure(figsize=(14, 8))

@@ -60,44 +60,30 @@ class MonDataset(Dataset):
 
 		if self.train_test == 'train':
 			# on choisit au hasard un modèle qui n'est pas all
-			while True: # TODO: fix this !!!!!!!
+			while True:  # TODO: fix this !!!!!!!
 				model = random.randint(0, len(self.ghg) - 1)
 				if model != self.all:
 					break
-
 			# On choisit au hasard une simulation de chaque type du modèle
-			ghg_max = self.ghg[model].shape[0] - 1
-			aer_max = self.aer[model].shape[0] - 1
-			nat_max = self.nat[model].shape[0] - 1
-			hist_max = self.historical[model].shape[0] - 1
 
-			indice_aer = random.randint(0, aer_max)
-			indice_ghg = random.randint(0, ghg_max)
-			indice_nat = random.randint(0, nat_max)
-			indice_hist = random.randint(0, hist_max)
-			# On crée les entrées et sortie
-			X = torch.stack(
-				(self.ghg[model][indice_ghg], self.aer[model][indice_aer], self.nat[model][indice_nat])).float()
-
-			Y = self.historical[model][indice_hist].float()
 		elif self.train_test == 'test':
 			# même fonctionnement mais en ne prenant que le modèle all
 			model = self.all
 			if model == -1:
 				model = random.randint(0, len(self.ghg) - 1)
-			ghg_max = self.ghg[model].shape[0] - 1
-			aer_max = self.aer[model].shape[0] - 1
-			nat_max = self.nat[model].shape[0] - 1
-			hist_max = self.historical[model].shape[0] - 1
 
-			indice_aer = random.randint(0, aer_max)
-			indice_ghg = random.randint(0, ghg_max)
-			indice_nat = random.randint(0, nat_max)
-			indice_hist = random.randint(0, hist_max)
+		ghg_max = self.ghg[model].shape[0] - 1
+		aer_max = self.aer[model].shape[0] - 1
+		nat_max = self.nat[model].shape[0] - 1
+		hist_max = self.historical[model].shape[0] - 1
 
-			X = torch.stack(
-				(self.ghg[model][indice_ghg], self.aer[model][indice_aer], self.nat[model][indice_nat])).float()
-			Y = self.historical[model][indice_hist].float()
+		indice_aer = random.randint(0, aer_max)
+		indice_ghg = random.randint(0, ghg_max)
+		indice_nat = random.randint(0, nat_max)
+		indice_hist = random.randint(0, hist_max)
+
+		X = torch.stack((self.ghg[model][indice_ghg], self.aer[model][indice_aer], self.nat[model][indice_nat])).float()
+		Y = self.historical[model][indice_hist].float()
 
 		return X, Y, model
 

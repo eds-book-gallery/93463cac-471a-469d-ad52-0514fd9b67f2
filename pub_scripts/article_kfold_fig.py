@@ -143,11 +143,11 @@ def plot_data():
 		axs[i, j].set_title(MODEL_TRUE_NAME[model])
 		axs[i, j].set_ylim((-1.4, 2.2))
 
-		if (j != 0):
+		if j != 0:
 			axs[i, j].set_yticklabels([])
 		else:
 			axs[i, j].set_ylabel('°C')
-		if (i != 2):
+		if i != 2:
 			axs[i, j].set_xticklabels([])
 		else:
 			axs[i, j].set_xlabel('Years')

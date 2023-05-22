@@ -1,5 +1,16 @@
 channels:
+  - pytorch
+  - nvidia
   - conda-forge
 dependencies:
   - python=3.10
+  - ipython
+  - matplotlib
+  - netcdf4
   - numpy
+  - pytorch::pytorch
+  - pytorch::pytorch-cuda=11.8
+  - pytorch::torchvision
+  - pytorch::torchaudio
+  - seaborn
+  - scipy

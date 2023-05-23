@@ -1,4 +1,4 @@
-name: team2
+name: team2-main-notebook
 channels:
   - pytorch
   - nvidia

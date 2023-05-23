@@ -1,10 +1,10 @@
+name: team2
 channels:
   - pytorch
   - nvidia
   - conda-forge
 dependencies:
   - python=3.10
-  - ipython
   - matplotlib
   - netcdf4
   - numpy

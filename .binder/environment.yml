@@ -4,6 +4,7 @@ channels:
   - conda-forge
 dependencies:
   - python=3.10
+  - jupyter
   - matplotlib
   - numpy
   - pytorch::pytorch
@@ -13,6 +14,5 @@ dependencies:
   - scipy
   - scikit-learn
   - pooch
-  - jupyter
   - netcdf4
   - tqdm

@@ -27,7 +27,7 @@
 </p>
 
 <p align="center">
-<img src="https://www.commondreams.org/media-library/ocean-surface-temperatures.jpg?id=33699188&width=1200&height=400&quality=90&coordinates=0%2C667%2C0%2C667" alt="thumbnail" width="500"/>
+<img src="https://github.com/eds-book-gallery/93463cac-471a-469d-ad52-0514fd9b67f2/assets/13321552/6171eaf3-80c4-4041-8743-4af368a9c95e" alt="thumbnail" width="500"/>
 </p>
 
 # How to run

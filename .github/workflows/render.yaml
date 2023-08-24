@@ -1,8 +1,9 @@
-name: Render
+name: render
 
 on:
   workflow_run:
     workflows: ["Build and push container image"]
+    branches: main
     types:
       - completed
       
@@ -12,7 +13,7 @@ jobs:
     name: ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
 
-    if: github.repository_owner == 'Environmental-DS-Book'
+    if: github.repository_owner == 'eds-book-gallery'
     strategy:
       fail-fast: false
       matrix:

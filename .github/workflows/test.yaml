@@ -34,10 +34,10 @@ jobs:
       uses: jupyterhub/repo2docker-action@master
       with: # make sure username & password/token matches your registry
         NO_PUSH: "true"
-        DOCKER_REGISTRY: ${{steps.config_quay.outputs.prop}}
+        DOCKER_REGISTRY: "quay.io"
 
         # Uncomment and modify the following line with your image name. a
-        IMAGE_NAME: "environmental_ds_book/test2i2c" 
+        IMAGE_NAME: ${{steps.config_quay.outputs.prop}}
 
     # Lets us monitor disks getting full as images get bigger over time
     - name: Show how much disk space is left

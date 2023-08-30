@@ -18,6 +18,11 @@ authors:
     affiliation: University of Cambridge
   - name: "This EDS book notebook contributors"
     website: "https://github.com/eds-book-gallery/93463cac-471a-469d-ad52-0514fd9b67f2/graphs/contributors"
+version: v1.0.0 # This is automatically set using the bumpversion tool.
+identifiers:
+  - type: doi
+    value: 10.5281/zenodo.8301002
+    description: The concept DOI for the collection containing all versions of the notebook.
 abstract: "Notebook developed to demonstrate the computational reproduction of the paper Detection and attribution of climate change: A deep learning and variational approach, published in Environmental Data Science journal."
 references:
   - authors:

@@ -14,7 +14,7 @@
     <a href="https://github.com/eds-book-gallery/93463cac-471a-469d-ad52-0514fd9b67f2/blob/main/LICENSE">
         <img alt="license" src="https://img.shields.io/badge/license-MIT-yellow.svg">
     </a>
-    <a href="https://notebooks.gesis.org/binder/v2/gh/eds-book-gallery/93463cac-471a-469d-ad52-0514fd9b67f2/postprint?labpath=notebook.ipynb">
+    <a href="https://notebooks.gesis.org/binder/v2/gh/eds-book-gallery/93463cac-471a-469d-ad52-0514fd9b67f2/main?labpath=notebook.ipynb">
         <img alt="binder" src="https://mybinder.org/badge_logo.svg">
     </a>
     <a href="https://github.com/eds-book-gallery/93463cac-471a-469d-ad52-0514fd9b67f2/actions/workflows/render.yaml">
@@ -24,6 +24,15 @@
         <img alt="review" src="https://img.shields.io/badge/view-review-purple">
     </a>
     <br/>
+</p>
+
+<p align="center">
+    <a href="https://w3id.org/ro-id/91046403-e0b7-41d3-8d60-4b540219ffa7">
+        <img alt="RoHub" src="https://img.shields.io/badge/RoHub-FAIR_Executable_Research_Object-2ea44f?logo=Open+Access&logoColor=blue">
+    </a>
+    <a href="https://zenodo.org/badge/latestdoi/638641256">
+        <img alt="doi" src="https://zenodo.org/badge/638641256.svg">
+    </a>
 </p>
 
 <p align="center">

@@ -27,6 +27,15 @@
 </p>
 
 <p align="center">
+    <a href="https://w3id.org/ro-id/91046403-e0b7-41d3-8d60-4b540219ffa7">
+        <img alt="RoHub" src="https://img.shields.io/badge/RoHub-FAIR_Executable_Research_Object-2ea44f?logo=Open+Access&logoColor=blue">
+    </a>
+    <a href="https://zenodo.org/badge/latestdoi/638641256">
+        <img alt="doi" src="https://zenodo.org/badge/638641256.svg">
+    </a>
+</p>
+
+<p align="center">
 <img src="https://github.com/eds-book-gallery/93463cac-471a-469d-ad52-0514fd9b67f2/assets/13321552/6171eaf3-80c4-4041-8743-4af368a9c95e" alt="thumbnail" width="500"/>
 </p>
 

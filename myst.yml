@@ -117,7 +117,7 @@ project:
     - format: cff
       type: software
       version: v2.0.0
-      license: MIT
+      license: MITs
       license-url: https://opensource.org/license/MIT
   bibliography:
     - references.bib

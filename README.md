@@ -3,7 +3,7 @@
 </div>
 
 <p align="center">
-<img src="https://github.com/alan-turing-institute/environmental-ds-book/blob/master/book/figures/logo/logo.png?raw=True" alt="thumbnail" width="200"/>
+<img src="https://github.com/alan-turing-institute/environmental-ds-book/blob/main/book/figures/logo/logo.png?raw=True" alt="thumbnail" width="200"/>
 </p>
 
 <div align="center">

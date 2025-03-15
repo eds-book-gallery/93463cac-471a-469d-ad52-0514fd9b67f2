@@ -6,7 +6,7 @@ on:
 jobs:
   test-build:
     runs-on: ubuntu-latest
-    if: github.repository_owner == 'eds-book-gallery'
+    if: github.repository_owner == 'eds-book'
     steps:
 
     # For biggish images, github actions runs out of disk space.

@@ -5,12 +5,12 @@ on:
     workflows: ["Build and push container image"]
     branches: [postprint]
     types: [completed]
-      
+
 # This job installs dependencies, build the jupyter notebook, and pushes it to `preview`, a new `branch`
 jobs:
   on-success:
     runs-on: ubuntu-latest
-    if: ${{ github.repository_owner == 'eds-book-gallery' && github.event.workflow_run.conclusion == 'success' }}
+    if: ${{ github.repository_owner == 'eds-book' && github.event.workflow_run.conclusion == 'success' }}
     defaults:
       run:
         shell: bash -l {0}
@@ -68,7 +68,7 @@ jobs:
          force: true
   on-failure:
     runs-on: ubuntu-latest
-    if: ${{ github.repository_owner == 'eds-book-gallery' && github.event.workflow_run.conclusion == 'failure' }}
+    if: ${{ github.repository_owner == 'eds-book' && github.event.workflow_run.conclusion == 'failure' }}
     steps:
       - name: Check conditions meet
         run: echo 'The triggering workflow failed'

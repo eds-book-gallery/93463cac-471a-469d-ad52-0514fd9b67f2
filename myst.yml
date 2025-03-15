@@ -1,0 +1,126 @@
+# See docs at: https://mystmd.org/guide/frontmatter
+version: 1
+extends:
+  - https://raw.githubusercontent.com/eds-book/edsbook-config/main/edsbook.yml
+project:
+  id: 39d9c177-11da-41b2-9b64-63f4c1c834b3
+  title: Deep learning and variational inversion to quantify and attribute climate change (Jupyter Notebook) published in the Environmental Data Science book
+  short_title: Deep learning and variational inversion for climate science (CIRC23)
+  abstract: "Notebook developed to demonstrate the computational reproduction of the paper Detection and attribution of climate change: A deep learning and variational approach, published in Environmental Data Science journal."
+  authors:
+    - id: vdomazetoski
+      name: Viktor Domazetoski
+      corresponding: true
+      email: viktor.domazetoski@hotmail.com
+      orcid: 0000-0001-9830-7032
+      url: https://github.com/ViktorDomazetoski
+      roles:
+        - Investigation
+        - Software
+        - Visualization
+      affiliations:
+        - gottingen
+    - id: azuniga
+      name: Andrés Zúñiga-González
+      url: https://github.com/ancazugo
+      roles:
+        - Investigation
+        - Software
+        - Visualization
+      affiliations:
+        - cambridge
+    - id: oallemang
+      name: Owen Allemang
+      url: https://github.com/SkirOwen
+      roles:
+        - Investigation
+        - Software
+        - Visualization
+      affiliations:
+        - cambridge
+  reviewers:
+    - id: masthana
+      name: Meghna Asthana
+      orcid: 0000-0002-6101-8904
+      url: https://github.com/asthanameghna
+      roles:
+        - Writing – review & editing
+      affiliations:
+        - turing
+    - id: nhomer
+      name: Nick Homer
+      url: https://github.com/NHomer-Edi
+      roles:
+        - Writing – review & editing
+      affiliations:
+        - edinburgh
+    - id: dbhattacharya
+      name: Devanjan Bhattacharya
+      orcid: 0000-0002-3382-9523
+      url: https://github.com/dbhatedin
+      roles:
+        - Writing – review & editing
+      affiliations:
+        - edinburgh
+  editors:
+    - id: acoca
+      name: Alejandro Coca-Castro
+      orcid: 0000-0002-9264-1539
+      url: https://github.com/acocac
+      roles:
+        - Writing – review & editing
+      affiliations:
+        - turing
+  affiliations:
+    - id: gottingen
+      name: University of Göttingen
+    - id: cambridge
+      name: University of Cambridge
+    - id: turing
+      name: The Alan Turing Institute
+      department: Environment & Sustainability
+    - id: edinburgh
+      name: University of Edinburgh
+  subject: Climate
+  keywords:
+    - environmental data science
+    - general
+    - modelling
+    - reproducibility challenge
+  venue:
+    title: Environmental Data Science Book
+    short_title: EDS Book
+    url: https://www.edsbook.org
+  issue:
+    name: Special Issue
+  thumbnail: images/thumbnail.png
+  requirements:
+    - environment.yml
+  doi: 10.5281/zenodo.8301002
+  github: https://github.com/eds-book/39d9c177-11da-41b2-9b64-63f4c1c834b3
+  jupyter:
+    binder:
+      repo: eds-book/39d9c177-11da-41b2-9b64-63f4c1c834b3
+  # To autogenerate a Table of Contents, run "jupyter book init --write-toc"
+  open_access: true
+  license:
+    content: CC-BY-4.0
+    code: MIT
+  date: 2024-09-13
+  toc:
+    - file: notebook.ipynb
+  exports:
+    - format: pdf
+      template: curvenote
+      article: notebook.ipynb
+      output: exports/notebook.pdf
+    - format: cff
+      type: software
+      version: v2.0.0
+      license: MIT
+      license-url: https://opensource.org/license/MIT
+  bibliography:
+    - references.bib
+
+site:
+  template: book-theme

@@ -81,7 +81,7 @@ project:
       department: Environment & Sustainability
     - id: edinburgh
       name: University of Edinburgh
-  subject: Climate
+  subject: Atmosphere
   keywords:
     - Atmosphere
     - Modelling

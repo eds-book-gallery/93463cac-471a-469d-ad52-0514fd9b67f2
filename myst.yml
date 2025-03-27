@@ -83,10 +83,10 @@ project:
       name: University of Edinburgh
   subject: Climate
   keywords:
-    - environmental data science
-    - general
-    - modelling
-    - reproducibility challenge
+    - Atmosphere
+    - Modelling
+    - Special Issue
+    - Python
   venue:
     title: Environmental Data Science Book
     short_title: EDS Book

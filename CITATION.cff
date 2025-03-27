@@ -34,10 +34,10 @@ identifiers:
   - type: doi
     value: 10.5281/zenodo.8301002
 keywords:
-  - environmental data science
-  - general
-  - modelling
-  - reproducibility challenge
+  - Atmosphere
+  - Modelling
+  - Special Issue
+  - Python
 license: MITs
 license-url: https://opensource.org/license/MIT
 repository: https://github.com/eds-book/39d9c177-11da-41b2-9b64-63f4c1c834b3

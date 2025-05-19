@@ -13,15 +13,12 @@ authors:
     affiliation: University of Göttingen
     orcid: 0000-0001-9830-7032
     email: viktor.domazetoski@hotmail.com
-    website: https://github.com/ViktorDomazetoski
   - family-names: Zúñiga-González
     given-names: Andrés
     affiliation: University of Cambridge
-    website: https://github.com/ancazugo
   - family-names: Allemang
     given-names: Owen
     affiliation: University of Cambridge
-    website: https://github.com/SkirOwen
 date-released: '2024-09-13'
 contact:
   - family-names: Domazetoski
@@ -29,10 +26,10 @@ contact:
     affiliation: University of Göttingen
     orcid: 0000-0001-9830-7032
     email: viktor.domazetoski@hotmail.com
-    website: https://github.com/ViktorDomazetoski
 identifiers:
-  - type: doi
-    value: 10.5281/zenodo.8301002
+  - description: Open review report for this notebook
+    type: url
+    value: https://github.com/eds-book/notebooks-reviews/issues/9
 keywords:
   - Atmosphere
   - Modelling
@@ -41,5 +38,25 @@ keywords:
 license: MITs
 license-url: https://opensource.org/license/MIT
 repository: https://github.com/eds-book/39d9c177-11da-41b2-9b64-63f4c1c834b3
+references:
+  - authors:
+      - family-names: Bône
+        given-names: Constantin
+      - family-names: Gastineau
+        given-names: Guillaume
+      - family-names: Thiria
+        given-names: Sylvie
+      - family-names: Gallinari
+        given-names: Patrick
+    doi: 10.1017/eds.2022.17
+    type: article
+    scope: >-
+      Reproduced paper as part of the 2023 Climate Informatics Reproducibility
+      Challenge.
+    title: >-
+      Detection and attribution of climate change: A deep learning and
+      variational approach
+    journal: Environmental Data Science journal
+    year: 2022
 type: software
-version: v2.0.0
+version: v2025.05.0

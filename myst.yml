@@ -13,7 +13,7 @@ project:
       corresponding: true
       email: viktor.domazetoski@hotmail.com
       orcid: 0000-0001-9830-7032
-      url: https://github.com/ViktorDomazetoski
+      github: ViktorDomazetoski
       roles:
         - Investigation
         - Software
@@ -22,7 +22,7 @@ project:
         - gottingen
     - id: azuniga
       name: Andrés Zúñiga-González
-      url: https://github.com/ancazugo
+      github: ancazugo
       roles:
         - Investigation
         - Software
@@ -31,7 +31,7 @@ project:
         - cambridge
     - id: oallemang
       name: Owen Allemang
-      url: https://github.com/SkirOwen
+      github: SkirOwen
       roles:
         - Investigation
         - Software
@@ -42,14 +42,14 @@ project:
     - id: masthana
       name: Meghna Asthana
       orcid: 0000-0002-6101-8904
-      url: https://github.com/asthanameghna
+      github: asthanameghna
       roles:
         - Writing – review & editing
       affiliations:
         - turing
     - id: nhomer
       name: Nick Homer
-      url: https://github.com/NHomer-Edi
+      github: NHomer-Edi
       roles:
         - Writing – review & editing
       affiliations:
@@ -57,7 +57,7 @@ project:
     - id: dbhattacharya
       name: Devanjan Bhattacharya
       orcid: 0000-0002-3382-9523
-      url: https://github.com/dbhatedin
+      github: dbhatedin
       roles:
         - Writing – review & editing
       affiliations:
@@ -66,7 +66,7 @@ project:
     - id: acoca
       name: Alejandro Coca-Castro
       orcid: 0000-0002-9264-1539
-      url: https://github.com/acocac
+      github: acocac
       roles:
         - Writing – review & editing
       affiliations:

@@ -123,6 +123,22 @@ project:
         - description: "Open review report for this notebook"
           type: url
           value: "https://github.com/eds-book/notebooks-reviews/issues/9"
+      references:
+        - authors:
+            - family-names: Bône
+              given-names: Constantin
+            - family-names: Gastineau
+              given-names: Guillaume
+            - family-names: Thiria
+              given-names: Sylvie
+            - family-names: Gallinari
+              given-names: Patrick
+          doi: 10.1017/eds.2022.17
+          type: article
+          scope: "Reproduced paper as part of the 2023 Climate Informatics Reproducibility Challenge."
+          title: "Detection and attribution of climate change: A deep learning and variational approach"
+          journal: "Environmental Data Science journal"
+          year: 2022
   bibliography:
     - references.bib
 

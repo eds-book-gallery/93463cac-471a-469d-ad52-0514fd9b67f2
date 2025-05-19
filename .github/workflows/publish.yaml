@@ -1,0 +1,18 @@
+name: publish
+
+on:
+  push:
+    branches: [main, postprint]
+    paths-ignore:
+      - 'README.md'
+
+jobs:
+  build-and-execute:
+    uses: eds-book/notebooks-workflows/.github/workflows/build.yaml@main
+    secrets:
+      QUAY_USERNAME: ${{ secrets.QUAY_USERNAME }}
+      QUAY_PASSWORD: ${{ secrets.QUAY_PASSWORD }}
+
+  deploy:
+    needs: build-and-execute
+    uses: eds-book/notebooks-workflows/.github/workflows/deploy.yaml@main

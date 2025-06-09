@@ -1,0 +1,12 @@
+name: monthly-build
+
+on:
+  schedule:
+    - cron: "0 9 1 * *" # At 09:00 UTC on the 1st of each month
+
+jobs:
+  build-and-execute:
+    uses: eds-book/notebooks-workflows/.github/workflows/build.yaml@main
+    secrets:
+      QUAY_USERNAME: ${{ secrets.QUAY_USERNAME }}
+      QUAY_PASSWORD: ${{ secrets.QUAY_PASSWORD }}
